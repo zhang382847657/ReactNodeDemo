@@ -3,15 +3,17 @@
  */
 //Greeter,js
 import React, {Component} from "react";
+import config from "./config.json";
 import styles from './Greeter.css';
-import { Button } from 'antd-mobile';
-
+import { Button, WhiteSpace, WingBlank } from 'antd-mobile';
 
 export default class Greeter extends Component {
     render() {
         return (
             <div className={styles.root}>
-                <Button>这里是一个按钮</Button>
+                {config.greetText}
+                <Button>default</Button>
+                <WhiteSpace />
                 <div className = {styles.test}>3333</div>
             </div>
 

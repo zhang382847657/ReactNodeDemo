@@ -26,7 +26,7 @@ module.exports = {
                 loader: 'svg-sprite-loader',
                 include: [
                     require.resolve('antd-mobile').replace(/warn\.js$/, ''),  // 1. svg files of antd-mobile
-                    // path.resolve(__dirname, '../src/'),  // folder of svg files in your project
+                   // path.resolve(__dirname, '../src/'),  // folder of svg files in your project
                 ]
             },
             {
@@ -55,7 +55,7 @@ module.exports = {
                     {loader: "style-loader"},
                     {loader: "css-loader"},
                     {loader: "less-loader"}
-                ]
+                    ]
             },
             { test: /\.css$/, //antd-mobile 要加上这个
                 loader: 'style-loader!css-loader'
@@ -71,5 +71,4 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin()//热加载插件
     ]
 }
-
 

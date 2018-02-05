@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "antd-mobile": "2.1.2",
+    "antd-mobile": "^2.1.2",
     "autoprefixer": "^7.2.5",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -30,11 +30,13 @@
     "postcss-pxtorem": "^4.0.1",
     "react-transform-hmr": "^1.0.4",
     "style-loader": "^0.20.1",
+    "svg-sprite-loader": "^3.6.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.1"
   },
   "dependencies": {
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.1.0"
   }
 }
