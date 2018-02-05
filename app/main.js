@@ -5,6 +5,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 import Greeter from './Greeter';
+import Login from './views/login';
 
-render(<Greeter />, document.getElementById('root'));
+render(<Login />, document.getElementById('root'));
 
