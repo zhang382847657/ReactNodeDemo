@@ -22,9 +22,25 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.(svg)$/i,  //antd-mobile 要加上这个
+                loader: 'svg-sprite-loader',
+                include: [
+                    require.resolve('antd-mobile').replace(/warn\.js$/, ''),  // 1. svg files of antd-mobile
+                    // path.resolve(__dirname, '../src/'),  // folder of svg files in your project
+                ]
+            },
+            {
                 test: /(\.jsx|\.js)$/,
                 use: {
                     loader: "babel-loader",
+
+                    options: {  //antd-mobile 要加上这个
+                        plugins: [
+                            ['import', { libraryName: 'antd-mobile', style: 'css' }],
+                        ],
+                        cacheDirectory: true,
+                    }
+
                     // options: {
                     //     presets: [
                     //         "env", "react"
@@ -34,24 +50,16 @@ module.exports = {
                 },
                 exclude: /node_modules/
             },
-            {
-                test: /\.css$/,
-                use: [
-                    {
-                        loader: "style-loader"
-                    }, {
-                        loader: "css-loader",
-                        options: {
-                            modules: true, // 指定启用css modules
-                            localIdentName: '[name]__[local]--[hash:base64:5]' // 指定css的类名格式
-                        }
-                    },
-                    {
-                        loader: "postcss-loader"
-                    }
+            {test:/\.less$/,  //antd-mobile 要加上这个
+                use:[
+                    {loader: "style-loader"},
+                    {loader: "css-loader"},
+                    {loader: "less-loader"}
                 ]
             },
-
+            { test: /\.css$/, //antd-mobile 要加上这个
+                loader: 'style-loader!css-loader'
+            }
 
         ]
     },
@@ -63,4 +71,5 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin()//热加载插件
     ]
 }
+
 
