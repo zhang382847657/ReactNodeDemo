@@ -11,17 +11,16 @@ export default class Login extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {}
+        this.state = {
 
-        console.log("aaaaa");
+        };
 
     }
 
 
     render() {
         return (
-            <div className='rn-login'>
-
+            <div>
 
                 <div className="login-header">登录</div>
 

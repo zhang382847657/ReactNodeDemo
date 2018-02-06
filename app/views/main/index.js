@@ -3,53 +3,61 @@
  */
 
 import React, {Component} from 'react';
-
-import {Flex, WhiteSpace, InputItem, Checkbox,Button} from 'antd-mobile';
+import { TabBar } from 'antd-mobile';
+import My from '../my';
+import Home from '../home';
 import './index.less';
 
 
 export default class Main extends Component {
     constructor(props) {
         super(props);
-        console.log(this);
-        console.log("tttt == ",this.props);
-        this.state = {}
-
+        this.state = {
+            selectedTab: 'topic',
+        };
 
     }
 
 
     render() {
         return (
-            <div className='rn-login'>
+            <div className='rn-main'>
 
-
-                <div className="login-header">首页</div>
-
-                <div className="login-center">
-
-                    <InputItem className="login-input"
-                               placeholder="请输入用户名">
-                        <div className="left-icon" style={{backgroundImage: 'url(https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png)'}}/>
-                    </InputItem>
-
-                    <InputItem className="login-input"
-                               placeholder="请输入密码">
-                        <div className="left-icon" style={{backgroundImage: 'url(https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png)'}}/>
-                    </InputItem>
-
-
-                    <Checkbox.AgreeItem className="login-check"
-                                        onChange={e => console.log('checkbox', e)}>
-                        记住账号
-                    </Checkbox.AgreeItem>
-
-                    <Button type="primary" className="login-button" onClick={()=>{
-                       this.props.history.push("/login")
-                    }}>登录</Button>
-
-
-                </div>
+                <TabBar id="bottomHeight"
+                        unselectedTintColor="#949494"
+                        tintColor="#33A3F4"
+                        barTintColor="white"
+                >
+                    <TabBar.Item
+                        title="话题"
+                        key="topic"
+                        icon={<div className="rn-tab-item-icon" style={{background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat' }}/>}
+                        selectedIcon={<div className="rn-tab-item-icon" style={{background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat' }}/>}
+                        selected={this.state.selectedTab === 'topic'}
+                        onPress={() => {
+                            this.setState({
+                                selectedTab: 'topic',
+                            });
+                        }}
+                        data-seed="logId"
+                    >
+                       <Home/>
+                    </TabBar.Item>
+                    <TabBar.Item
+                        icon={<div className="rn-tab-item-icon" style={{background: 'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat' }}/>}
+                        selectedIcon={<div style={{background: 'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat' }}/>}
+                        title="我的"
+                        key="my"
+                        selected={this.state.selectedTab === 'my'}
+                        onPress={() => {
+                            this.setState({
+                                selectedTab: 'my',
+                            });
+                        }}
+                    >
+                       <My/>
+                    </TabBar.Item>
+                </TabBar>
 
 
             </div>
