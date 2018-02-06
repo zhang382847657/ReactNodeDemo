@@ -134,14 +134,14 @@ export default class Home extends Component {
                     mode="dark"
                     onLeftClick={() => console.log('onLeftClick')}
                     rightContent={[
-                        <a key="fabiao">发表话题</a>
+                        <i key="fabiao" className="fa fa-edit edit-icon"/>
                     ]}
                 >
                     <InputItem className='header-search'
                              clear
                              placeholder="请输入要查询的位置"
                              onChange={()=>{}}>
-                        <div className="search-icon" style={{backgroundImage: 'url(https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png)'}}/>
+                        <i className="fa fa-search tab-bar-item-icon"/>
                     </InputItem>
                 </NavBar>
 

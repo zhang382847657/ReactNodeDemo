@@ -31,8 +31,8 @@ export default class Main extends Component {
                     <TabBar.Item
                         title="话题"
                         key="topic"
-                        icon={<div className="rn-tab-item-icon" style={{background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat' }}/>}
-                        selectedIcon={<div className="rn-tab-item-icon" style={{background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat' }}/>}
+                        icon={<i className="fa fa-comment-o tab-bar-item-icon"/>}
+                        selectedIcon={<i className="fa fa-commenting tab-bar-item-icon"/>}
                         selected={this.state.selectedTab === 'topic'}
                         onPress={() => {
                             this.setState({
@@ -44,8 +44,8 @@ export default class Main extends Component {
                        <Home/>
                     </TabBar.Item>
                     <TabBar.Item
-                        icon={<div className="rn-tab-item-icon" style={{background: 'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat' }}/>}
-                        selectedIcon={<div style={{background: 'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat' }}/>}
+                        icon={<i className="fa fa-user-circle-o tab-bar-item-icon"/>}
+                        selectedIcon={<i className="fa fa-user-circle tab-bar-item-icon"/>}
                         title="我的"
                         key="my"
                         selected={this.state.selectedTab === 'my'}
