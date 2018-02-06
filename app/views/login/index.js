@@ -25,25 +25,13 @@ export default class Login extends Component {
                 <div className="login-header">登录</div>
 
                 <InputItem className="login-input"
-                    placeholder="请输入用户名"
-                >
-                    <div style={{
-                        backgroundImage: 'url(https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png)',
-                        backgroundSize: 'cover',
-                        height: '22px',
-                        width: '22px'
-                    }}/>
+                           placeholder="请输入用户名">
+                    <div className="left-icon" style={{backgroundImage: 'url(https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png)'}}/>
                 </InputItem>
 
                 <InputItem className="login-input"
-                    placeholder="请输入密码"
-                >
-                    <div style={{
-                        backgroundImage: 'url(https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png)',
-                        backgroundSize: 'cover',
-                        height: '22px',
-                        width: '22px'
-                    }}/>
+                           placeholder="请输入密码">
+                    <div className="left-icon" style={{backgroundImage: 'url(https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png)'}}/>
                 </InputItem>
 
 
