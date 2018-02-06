@@ -44,10 +44,10 @@ export default class Search extends Component {
                 <div className="hot-search">
                     <h1>吐槽热搜</h1>
                     <div className="hot-search-list">
-                        <span>土木三八班偶同学1</span>
+                        <span><i className="fa fa-free-code-camp hot-search-icon"></i>土木三八班偶同学1</span>
                         <span>跳一跳攻略</span>
                         <span>美国禁止华为</span>
-                        <span>前任攻略3</span>
+                        <span ><i className="fa fa-heartbeat hot-search-icon"></i>前任攻略3</span>
                         <span>哈哈哈哈哈哈哈哈</span>
                         <span>标题啦标题啦</span>
                     </div>
@@ -58,19 +58,28 @@ export default class Search extends Component {
                     <div className="history-search-list">
                         <ul>
                             <li>
-                                朱九天半夜被爱仕达撒所多 <Icon type="cross" className="close" size="lg"/>
+                                <i className="fa fa-calendar-o history-icon-time"></i>生活中有哪些让你让你拍案叫绝的小技巧<Icon
+                                type="cross" className="close" size="lg"/>
                             </li>
                             <li>
-                                睡觉了哭过范集速度快盖浇饭多<Icon type="cross" className="close" size="lg"/>
+                                <i className="fa fa-calendar-o history-icon-time"></i>如何看到金田和张继科的恋爱？<Icon type="cross"
+                                                                                                          className="close"
+                                                                                                          size="lg"/>
                             </li>
                             <li>
-                                屁哦屁哦皮皮欧派<Icon type="cross" className="close" size="lg"/>
+                                <i className="fa fa-calendar-o history-icon-time"></i>二战中细思极恐的细节！！<Icon type="cross"
+                                                                                                        className="close"
+                                                                                                        size="lg"/>
                             </li>
-
 
                         </ul>
 
                     </div>
+                </div>
+
+                <div className="">
+
+
                 </div>
 
             </div>
