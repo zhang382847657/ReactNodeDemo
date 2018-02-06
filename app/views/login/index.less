@@ -6,28 +6,70 @@
   position: relative;
 
   .login-header {
-    font-size: 64px;
+    font-size: 60px;
     line-height: 180px;
     height: 180px;
     color: #3080FE;
     text-align: center;
     position: relative;
-    //align-items: center;
   }
 
-  .login-input {
-    height: 150px;
+  .login-center {
 
-    .left-icon {
-       height: 44px;
-       width: 44px;
-       background-size: cover;
-    }
+    padding-left: 100px;
+    padding-right: 100px;
 
-    .am-input-control {
-      input {
-        font-size: 30px;
+    .login-input {
+      height: 150px;
+      border-bottom: double;
+      border-bottom-color: #cccccc;
+
+      .left-icon {
+        height: 44px;
+        width: 44px;
+        background-size: cover;
+      }
+
+      .am-input-control {
+        input {
+          font-size: 36px;
+        }
       }
     }
+
+    .login-check {
+      height: 50px;
+      margin-top: 60px;
+      margin-left: 0;
+
+      .am-checkbox-agree-label {
+        margin-left: 50px;
+        font-size: 30px;
+        color: #999;
+      }
+      .am-checkbox{
+        .am-checkbox-inner{
+          height: 40px;
+          width: 40px;
+        }
+      }
+    }
+
+    .login-button {
+      height: 120px;
+      margin-top: 60px;
+      border-radius: 60px;
+      background-color: #3080FE;;
+
+
+        span {
+          font-size: 40px;
+          line-height: 120px;
+          text-align: center;
+        }
+
+    }
+
   }
+
 }
