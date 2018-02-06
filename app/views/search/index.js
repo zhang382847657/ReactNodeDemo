@@ -59,17 +59,17 @@ export default class Search extends Component {
                         <ul>
                             <li>
                                 <i className="fa fa-calendar-o history-icon-time"></i>生活中有哪些让你让你拍案叫绝的小技巧<Icon
-                                type="cross" className="close" size="lg"/>
+                                type="cross" className="close" size="xs"/>
                             </li>
                             <li>
                                 <i className="fa fa-calendar-o history-icon-time"></i>如何看到金田和张继科的恋爱？<Icon type="cross"
                                                                                                           className="close"
-                                                                                                          size="lg"/>
+                                                                                                          size="xs"/>
                             </li>
                             <li>
                                 <i className="fa fa-calendar-o history-icon-time"></i>二战中细思极恐的细节！！<Icon type="cross"
                                                                                                         className="close"
-                                                                                                        size="lg"/>
+                                                                                                        size="xs"/>
                             </li>
 
                         </ul>
