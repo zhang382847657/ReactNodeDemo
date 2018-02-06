@@ -20,26 +20,39 @@ module.exports = {
         hot: true
     },
     module: {
-        rules: [{
-            test: /(\.jsx|\.js)$/,
-            use: {
-                loader: "babel-loader"
+        rules: [
+            {
+                test: /\.(svg)$/i,  //antd-mobile 要加上这个
+                loader: 'svg-sprite-loader',
+                include: [
+                    require.resolve('antd-mobile').replace(/warn\.js$/, ''),  // 1. svg files of antd-mobile
+                ]
             },
-            exclude: /node_modules/
-        }, {
-            test: /\.css$/,
-            use: ExtractTextPlugin.extract({
-                fallback: "style-loader",
-                use: [{
-                    loader: "css-loader",
-                    options: {
-                        modules: true
+            {
+                test: /(\.jsx|\.js)$/,
+                use: {
+                    loader: "babel-loader",
+
+                    options: {  //antd-mobile 要加上这个
+                        plugins: [
+                            ['import', { libraryName: 'antd-mobile', style: 'css' }],
+                        ],
+                        cacheDirectory: true,
                     }
-                }, {
-                    loader: "postcss-loader"
-                }],
-            })
-        }]
+                    
+                },
+                exclude: /node_modules/
+            },
+            {test:/\.less$/,  //antd-mobile 要加上这个
+                use:[
+                    {loader: "style-loader"},
+                    {loader: "css-loader"},
+                    {loader: "less-loader"}
+                ]
+            },
+            { test: /\.css$/, //antd-mobile 要加上这个
+                loader: 'style-loader!css-loader'
+            }]
     },
     plugins: [
 

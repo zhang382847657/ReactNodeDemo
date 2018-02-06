@@ -3,17 +3,18 @@
  */
 
 import React, {Component} from 'react';
+
 import {Flex, WhiteSpace, InputItem, Checkbox,Button} from 'antd-mobile';
 import './index.less';
 
 
-export default class Login extends Component {
+export default class Main extends Component {
     constructor(props) {
         super(props);
-
+        console.log(this);
+        console.log("tttt == ",this.props);
         this.state = {}
 
-        console.log("aaaaa");
 
     }
 
@@ -23,7 +24,7 @@ export default class Login extends Component {
             <div className='rn-login'>
 
 
-                <div className="login-header">登录</div>
+                <div className="login-header">首页</div>
 
                 <div className="login-center">
 
@@ -43,7 +44,9 @@ export default class Login extends Component {
                         记住账号
                     </Checkbox.AgreeItem>
 
-                    <Button type="primary" className="login-button">登录</Button>
+                    <Button type="primary" className="login-button" onClick={()=>{
+                       this.props.history.push("/login")
+                    }}>登录</Button>
 
 
                 </div>

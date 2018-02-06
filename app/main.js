@@ -3,8 +3,22 @@
  */
 
 import React from 'react';
-import {render} from 'react-dom';
-import Greeter from './Greeter';
+import { Router, HashRouter,Route ,IndexRoute,Switch,Link} from 'react-router-dom';
+import ReactDOM from 'react-dom';
+import Login from './views/login';
+import Main from './views/main';
+import Register from './views/register';
 
-render(<Greeter />, document.getElementById('root'));
+import createHashHistory from 'history/createHashHistory';
+
+
+ReactDOM.render(
+    <Router history={createHashHistory()} >
+        <div>
+            <Route exact path="/" component={Main} />
+            <Route path="/login" component={Login}/>
+            <Route path="/register" component={Register}/>
+        </div>
+    </Router>
+   , document.getElementById('root'));
 
