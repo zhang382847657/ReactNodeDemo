@@ -10,6 +10,7 @@ export default class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {}
+        this.register = this.register.bind(this);
     }
 
     componentDidMount() {
@@ -54,13 +55,18 @@ export default class Register extends Component {
                            src="https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png"/></InputItem>
 
                     <Radio className="my-radio">同意注册条款</Radio>
-                    <Button type="primary" className="button">注册</Button>
-
-                    <h3 className="login">登录</h3>
+                    <Button type="primary" className="button" >注册</Button>
+                    <div className="login" onClick={this.register}>登录</div>
                 </div>
             </div>
         )
 
 
+    }
+
+
+    register(){
+        console.log("111111")
+        this.props.history.push("login")
     }
 }

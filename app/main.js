@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom';
 import Login from './views/login';
 import Main from './views/main';
 import Register from './views/register';
+import Search from './views/search';
 
 import createHashHistory from 'history/createHashHistory';
 
@@ -18,6 +19,7 @@ ReactDOM.render(
             <Route exact path="/" component={Main} />
             <Route path="/login" component={Login}/>
             <Route path="/register" component={Register}/>
+            <Route path="/search" component={Search}/>
         </div>
     </Router>
    , document.getElementById('root'));

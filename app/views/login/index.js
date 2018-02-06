@@ -2,9 +2,9 @@
  * Created by zhanglin on 2018/2/5.
  */
 
-import React, {Component} from 'react';
-import {Flex, WhiteSpace, InputItem, Checkbox,Button} from 'antd-mobile';
-import './index.less';
+import React, {Component} from "react";
+import {Button, Checkbox, InputItem} from "antd-mobile";
+import "./index.less";
 
 
 export default class Login extends Component {
@@ -14,6 +14,7 @@ export default class Login extends Component {
         this.state = {}
 
         console.log("aaaaa");
+        this.nowToRegister = this.nowToRegister.bind(this)
 
     }
 
@@ -44,12 +45,19 @@ export default class Login extends Component {
                     </Checkbox.AgreeItem>
 
                     <Button type="primary" className="login-button">登录</Button>
-
-
                 </div>
+
+                <div className="nowRegister" onClick={this.nowToRegister}>立即注册</div>
 
 
             </div>
         );
+    }
+
+    /***
+     * 立即去注册
+     */
+    nowToRegister(){
+        this.props.history.push("register")
     }
 }
