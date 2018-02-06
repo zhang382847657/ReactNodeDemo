@@ -1,58 +1,72 @@
 /**
  * Created by zhouxin on 2018/2/5.
  */
-/**
- * Created by zhanglin on 2018/2/5.
- */
-
-import React, {Component} from 'react';
-import {Flex, WhiteSpace, InputItem, Checkbox,Button} from 'antd-mobile';
-import './index.less';
+import React, {Component} from "react";
+import "./index.less";
+import {Button, InputItem, Radio, WhiteSpace} from "antd-mobile";
 
 
 export default class Register extends Component {
     constructor(props) {
         super(props);
-
         this.state = {}
+        this.register = this.register.bind(this);
+    }
 
-        console.log("aaaaa");
+    componentDidMount() {
+
 
     }
 
 
     render() {
         return (
-            <div className='rn-login'>
-
-
-                <div className="login-header">注册</div>
-
-                <div className="login-center">
-
-                    <InputItem className="login-input"
-                               placeholder="请输入用户名">
-                        <div className="left-icon" style={{backgroundImage: 'url(https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png)'}}/>
-                    </InputItem>
-
-                    <InputItem className="login-input"
-                               placeholder="请输入密码">
-                        <div className="left-icon" style={{backgroundImage: 'url(https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png)'}}/>
-                    </InputItem>
-
-
-                    <Checkbox.AgreeItem className="login-check"
-                                        onChange={e => console.log('checkbox', e)}>
-                        记住账号
-                    </Checkbox.AgreeItem>
-
-                    <Button type="primary" className="login-button">登录</Button>
-
-
+            <div >
+                <div className="from">
+                    <h3 className="title">注册</h3>
                 </div>
 
 
+                <div className="write-data">
+                    <InputItem
+                        className="inp"
+                        placeholder="姓名"
+                        moneyKeyboardAlign="left"
+                    >
+                        <img className="image" src="https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png"/>
+                    </InputItem>
+                    <InputItem
+                        className="inp"
+                        placeholder="请输入邮箱"
+                        moneyKeyboardAlign="left"
+                    > <img className="image"
+                           src="https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png"/></InputItem>
+                    <InputItem
+                        className="inp"
+                        placeholder="请输入密码"
+                        moneyKeyboardAlign="left"
+                    > <img className="image"
+                           src="https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png"/></InputItem>
+                    <InputItem
+                        className="inp"
+                        placeholder="请再次输入密码"
+                        moneyKeyboardAlign="left"
+                    > <img className="image"
+                           src="https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png"/></InputItem>
+
+                    <Radio className="my-radio">同意注册条款</Radio>
+                    <Button type="primary" className="button" >注册</Button>
+                    <div className="login" onClick={this.register}>登录</div>
+                </div>
             </div>
-        );
+        )
+
+
+    }
+
+
+    register(){
+        console.log("111111")
+        this.props.history.push("login")
     }
 }
