@@ -25,7 +25,7 @@ export default class Main extends Component {
 
                 <TabBar id="bottomHeight"
                         unselectedTintColor="#949494"
-                        tintColor="#33A3F4"
+                        tintColor="#7CCBFF"
                         barTintColor="white"
                 >
                     <TabBar.Item

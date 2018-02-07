@@ -5,6 +5,7 @@
 import React, {Component} from 'react';
 import {Flex, WhiteSpace,NavBar,Icon,Grid,Button} from 'antd-mobile';
 import './index.less';
+import Header from '../component/header';
 
 
 const data = [
@@ -44,17 +45,14 @@ export default class My extends Component {
     render() {
         return (
             <div>
-                <NavBar mode="dark" onLeftClick={() => console.log('onLeftClick')}>我的</NavBar>
+                <Header navBarText="我的" navBarLeftIcon=""/>
 
-                <div>
-                    <Button>登录/注册</Button>
+                <div className="rn-my-header">
+                    <Button className="login-button">登录/注册</Button>
                 </div>
-
+                <WhiteSpace/>
 
                 <Grid data={data} activeStyle={false} />
-
-
-
 
             </div>
         );

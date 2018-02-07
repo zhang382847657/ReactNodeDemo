@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const theme = require('./app/views/style/style.js');
 
 module.exports = {
     entry: __dirname + "/app/main.js", //已多次提及的唯一入口文件
@@ -43,11 +44,11 @@ module.exports = {
                 },
                 exclude: /node_modules/
             },
-            {test:/\.less$/,  //antd-mobile 要加上这个
+            {test:/\.less$/,  //antd-mobile 要加上这个:w
                 use:[
                     {loader: "style-loader"},
                     {loader: "css-loader"},
-                    {loader: "less-loader"}
+                    {loader: "less-loader",options:{modifyVars: theme}}
                 ]
             },
             { test: /\.css$/, //antd-mobile 要加上这个
