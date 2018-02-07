@@ -5,10 +5,50 @@
 import React, {Component} from 'react';
 import {Flex, WhiteSpace, InputItem, Checkbox,Button,NavBar,Icon,ListView,PullToRefresh} from 'antd-mobile';
 import './index.less';
+import Header from './header';
 
 
 const dataSource = [
     {
+        id:"0",
+        title:"甄嬛传中有哪些细思极恐的细节？",
+        content:"这里是正文，正文，正文，你看",
+        commentNum:130,
+        zanNum:200,
+        img:"http://pic.58pic.com/58pic/15/07/01/40V58PICaih_1024.jpg"
+    },
+    {
+        id:"1",
+        title:"生活用品中哪些让你拍案叫绝的巧妙设计？为什么要这样设计？",
+        content:"这里是正文，正文，正文，你看",
+        commentNum:93,
+        zanNum:1450,
+        img:"http://img1.imgtn.bdimg.com/it/u=1202973162,4047582720&fm=27&gp=0.jpg"
+    },
+    {
+        id:"2",
+        title:"那个瞬间你对中国娱乐圈彻底失望",
+        content:"这里是正文，正文，正文，你看",
+        commentNum:6004,
+        zanNum:5620,
+        img:"http://pic2.ooopic.com/10/22/23/71b1OOOPICda.jpg"
+    },
+    {
+        id:"3",
+        title:"如何看待惊天和张继科疑似恋情",
+        content:"这里是正文，正文，正文，你看",
+        commentNum:666,
+        zanNum:590,
+        img:"http://img1.imgtn.bdimg.com/it/u=1783848885,1970431296&fm=27&gp=0.jpg"
+    },
+    {
+        id:"4",
+        title:"就死额无人了设计费？？额UR接我IE就！！！",
+        content:"这里是正文，正文，正文，你看",
+        commentNum:9898,
+        zanNum:345,
+        img:"http://pic.58pic.com/58pic/15/06/90/19T58PICzS7_1024.jpg"
+    },{
         id:"0",
         title:"甄嬛传中有哪些细思极恐的细节？",
         content:"这里是正文，正文，正文，你看",
@@ -108,7 +148,7 @@ export default class Home extends Component {
                 <Flex.Item>
                     <Flex direction="column" justify="around" align="start">
                         <span style={{fontSize:"18px"}}>{rowData.title}</span>
-                        <span style={{color:"#cccccc"}}>{`${rowData.commentNum}条吐槽  ${rowData.zanNum}个赞`}</span>
+                        <span style={{color:"#999"}}>{`${rowData.commentNum}条吐槽  ${rowData.zanNum}个赞`}</span>
                     </Flex>
                 </Flex.Item>
                 <img className="list-item-img" src={rowData.img}/>
@@ -130,22 +170,8 @@ export default class Home extends Component {
     render() {
         return (
             <div>
-                <NavBar id="topHeight"
-                    mode="dark"
-                    onLeftClick={() => console.log('onLeftClick')}
-                    rightContent={[
-                        <i key="fabiao" className="fa fa-edit edit-icon"/>
-                    ]}
-                >
-                    <InputItem className='header-search'
-                             clear
-                             placeholder="请输入要查询的位置"
-                             onChange={()=>{}}>
-                        <i className="fa fa-search tab-bar-item-icon"/>
-                    </InputItem>
-                </NavBar>
-
-
+                <Header/>
+                <WhiteSpace/>
                 <ListView dataSource={this.state.dataList}
                           renderFooter={() => (<div style={{textAlign: 'center' }}>
                               加载中……
