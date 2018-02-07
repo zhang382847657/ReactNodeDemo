@@ -162,7 +162,7 @@ export default class Home extends Component {
      * @private
      */
     _gotoTopicDetail(){
-        console.log("将要跳转到话题详情页")
+        console.log("将要跳转到话题详情页");
     }
 
 
@@ -187,6 +187,13 @@ export default class Home extends Component {
                                   </div>
                               )
                           }}
+
+                          renderSeparator = {()=>{
+                              return(
+                                  <WhiteSpace className="list-item-separator"/>
+                              )
+                          }}
+
                           pullToRefresh={<PullToRefresh refreshing={this.state.refreshing}
                                                         onRefresh={()=>{}}/>}
                           onEndReached={()=>{}}
