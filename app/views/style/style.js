@@ -34,4 +34,6 @@ var style = {
         mainSize:"1px"
     }
 
-}
+};
+
+module.exports = style;
