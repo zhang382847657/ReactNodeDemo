@@ -11,6 +11,9 @@ import Register from './views/register';
 import Search from './views/search';
 import PostTheme from './views/posttheme';
 import Reply from './views/reply';
+import Participate from './views/my/participate';
+
+
 
 import createHashHistory from 'history/createHashHistory';
 
@@ -24,6 +27,8 @@ ReactDOM.render(
             <Route path="/search" component={Search}/>
             <Route path="/posttheme" component={PostTheme}/>
             <Route path="/reply" component={Reply}/>
+            <Route path="/participate" component={Participate}/>
+
 
 
         </div>
