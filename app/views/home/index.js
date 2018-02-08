@@ -6,6 +6,7 @@ import React, {Component} from 'react';
 import {Flex, WhiteSpace, InputItem, Checkbox,Button,NavBar,Icon,ListView,PullToRefresh} from 'antd-mobile';
 import './index.less';
 import Header from './header';
+import MyListView from '../component/listview';
 
 
 const dataSource = [
@@ -162,7 +163,7 @@ export default class Home extends Component {
      * @private
      */
     _gotoTopicDetail(){
-        console.log("将要跳转到话题详情页")
+        console.log("将要跳转到话题详情页");
     }
 
 
@@ -172,27 +173,18 @@ export default class Home extends Component {
             <div>
                 <Header/>
                 <WhiteSpace/>
-                <ListView dataSource={this.state.dataList}
-                          renderFooter={() => (<div style={{textAlign: 'center' }}>
-                              加载中……
-                          </div>)}
-                          style={{height:this.state.scrollHeight,overflow: 'auto'}}
-                          useBodyScroll={false}
-                          renderRow={this._renderItem}
-                          renderSectionBodyWrapper ={()=>{
-                              return(
+                <MyListView url="aaaa"
+                            method="GET"
+                            pageSize={10}
+                            dataSource={dataSource}
+                            needToken={false}
+                            renderRow={this._renderItem}
+                            renderSeparator = {()=>{
+                                return(
+                                    <WhiteSpace className="list-item-separator"/>
+                                )
+                            }}/>
 
-                                  <div>
-                                      {this.props.children}
-                                  </div>
-                              )
-                          }}
-                          pullToRefresh={<PullToRefresh refreshing={this.state.refreshing}
-                                                        onRefresh={()=>{}}/>}
-                          onEndReached={()=>{}}
-                          pageSize={5}
-
-                />
 
 
             </div>

@@ -4,6 +4,7 @@
 
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const theme = require('./app/views/style/style.js');
 
 module.exports = {
     devtool: 'eval-source-map',
@@ -54,7 +55,7 @@ module.exports = {
                 use:[
                     {loader: "style-loader"},
                     {loader: "css-loader"},
-                    {loader: "less-loader"}
+                    {loader: "less-loader",options:{modifyVars: theme}}
                     ]
             },
             { test: /\.css$/, //antd-mobile 要加上这个

@@ -3,13 +3,16 @@
  */
 
 import React, { Component} from 'react';
-import {NavBar,InputItem} from 'antd-mobile';
+import {NavBar,Flex} from 'antd-mobile';
+import createHashHistory from 'history/createHashHistory';
+const history = createHashHistory();
 
 import './index.less';
 
 export default class Header extends Component{
     constructor(props){
         super(props);
+        this._searchClick = this._searchClick.bind(this);
     }
 
     render(){
@@ -20,13 +23,16 @@ export default class Header extends Component{
                         <i key="fabiao" className="fa fa-edit edit-icon"/>
                     ]}
             >
-                <InputItem className='header-search'
-                           clear
-                           placeholder="请输入要查询的位置"
-                           onChange={()=>{}}>
-                    <i className="fa fa-search tab-bar-item-icon"/>
-                </InputItem>
+                <Flex className='header-search' justify="center" onClick={this._searchClick}>
+                    <i className="fa fa-search search-icon"/>
+                    <span className="search-title">搜索</span>
+                </Flex>
+
             </NavBar>
         )
+    }
+
+    _searchClick(){
+        history.push("/search");
     }
 }
