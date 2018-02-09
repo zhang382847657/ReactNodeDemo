@@ -13,6 +13,7 @@ export default class Header extends Component{
     constructor(props){
         super(props);
         this._searchClick = this._searchClick.bind(this);
+        this._topicClick = this._topicClick.bind(this);
     }
 
     render(){
@@ -20,7 +21,7 @@ export default class Header extends Component{
             <NavBar id="topHeight" className="rn-home-navbar"
                     mode="dark"
                     rightContent={[
-                        <i key="fabiao" className="fa fa-edit edit-icon"/>
+                        <i key="fabiao" className="fa fa-edit edit-icon" onClick={this._topicClick}/>
                     ]}
             >
                 <Flex className='header-search' justify="center" onClick={this._searchClick}>
@@ -32,7 +33,19 @@ export default class Header extends Component{
         )
     }
 
+    /**
+     * 搜索
+     * @private
+     */
     _searchClick(){
         history.push("/search");
+    }
+
+    /***
+     * 发布话题
+     * @private
+     */
+    _topicClick(){
+        history.push("/posttheme");
     }
 }
