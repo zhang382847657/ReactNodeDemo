@@ -6,16 +6,20 @@ import React, {Component} from 'react';
 import {Flex, WhiteSpace,NavBar,Icon,Grid,Button} from 'antd-mobile';
 import './index.less';
 import Header from '../component/header';
+import createHashHistory from 'history/createHashHistory';
+const history = createHashHistory();
 
 
 const data = [
     {
         icon:"https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png",
-        text:"发布话题"
+        text:"发布话题",
+        url:"/posttheme"
     },
     {
         icon:"https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png",
-        text:"我参与过的话题"
+        text:"我参与过的话题",
+        url:"/Participate"
     },
     {
         icon:"https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png",
@@ -31,6 +35,7 @@ export default class My extends Component {
 
         };
 
+        this.click = this.click.bind(this)
 
 
     }
@@ -41,6 +46,10 @@ export default class My extends Component {
 
     }
 
+    click(e,i){
+        history.push(e.url);
+
+    }
 
     render() {
         return (
@@ -52,7 +61,7 @@ export default class My extends Component {
                 </div>
                 <WhiteSpace/>
 
-                <Grid data={data} activeStyle={false} />
+                <Grid data={data} activeStyle={false} onClick={this.click}/>
 
             </div>
         );

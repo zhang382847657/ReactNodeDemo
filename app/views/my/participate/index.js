@@ -8,6 +8,7 @@ import "./index.less";
 import {Flex, Icon, NavBar} from "antd-mobile";
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory();
+import Header from "../../component/header";
 
 
 const dataList = [
@@ -123,13 +124,12 @@ export default class Participate extends Component {
     render() {
         return (
             <div className="participate">
-                <NavBar
-                    className="navbar"
-                    mode="light"
-                    icon={<Icon type="left"/>}
-                    onLeftClick={() => console.log('onLeftClick')}
-                >我参与过的话题</NavBar>
-                {this.renderList()}
+                <Header navBarText="我参与过的话题" />
+                <div className="padding-div">
+
+                    {this.renderList()}
+                </div>
+
             </div>
 
 
