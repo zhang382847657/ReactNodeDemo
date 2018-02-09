@@ -107,14 +107,14 @@ export default class MyListView extends Component {
                     dataList:that.state.dataList.cloneWithRows(that.dataList),
                     refreshing: false,
                     isLoading: false,
-                    hasMore:(pageNum+1)*that.props.pageSize < 200 ? true : false
+                    hasMore:(pageNum+1)*that.props.pageSize < 40 ? true : false
                 })
             }else { //如果是上拉刷新
                 that.dataList = that.dataList.concat(that.props.dataSource);
                 that.setState({
                     dataList:that.state.dataList.cloneWithRows(that.dataList),
                     isLoading: false,
-                    hasMore:(pageNum+1)*that.props.pageSize < 200 ? true : false
+                    hasMore:(pageNum+1)*that.props.pageSize < 40 ? true : false
                 })
             }
 

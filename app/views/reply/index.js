@@ -4,6 +4,7 @@
 import React, {Component} from "react";
 import "./index.less";
 import {Icon, List, NavBar,TextareaItem} from "antd-mobile";
+import Header from "../component/header";
 
 
 
@@ -23,15 +24,7 @@ export default class Reply extends Component {
 
         return (
             <div className="reply">
-               <div>
-                   <NavBar
-                       className="navbar"
-                       mode="light"
-                       icon={<Icon type="left"/>}
-                       onLeftClick={() => console.log('onLeftClick')}
-                       rightContent={"评论"}
-                   >这里显示回复的主题名称</NavBar>
-               </div>
+                <Header navBarText="吐槽" navBarRight={"评论"}/>
 
                 <div className="content">
                     <h3>消息内容</h3>
