@@ -56,12 +56,16 @@ export default class My extends Component {
             <div>
                 <Header navBarText="我的" navBarLeftIcon=""/>
 
-                <div className="rn-my-header">
-                    <Button className="login-button">登录/注册</Button>
-                </div>
-                <WhiteSpace/>
+                <div className="rn-my-div">
 
-                <Grid data={data} activeStyle={false} onClick={this.click}/>
+                    <div className="rn-my-header">
+                        <Button className="login-button">登录/注册</Button>
+                    </div>
+                    <WhiteSpace/>
+
+                    <Grid data={data} activeStyle={false} />
+
+                </div>
 
             </div>
         );
