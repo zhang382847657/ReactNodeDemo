@@ -27,11 +27,10 @@ export default class Reply extends Component {
                 <Header navBarText="吐槽" navBarRight={"评论"}/>
 
                 <div className="content">
-                    <h3>消息内容</h3>
                     <TextareaItem
                         rows={7}
                         placeholder="用力去吐槽吧"
-                    ></TextareaItem>
+                    />
                 </div>
 
                 <div className="img-d">
