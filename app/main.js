@@ -11,6 +11,7 @@ import Register from './views/register';
 import Search from './views/search';
 import PostTheme from './views/posttheme';
 import Reply from './views/reply';
+import Participate from './views/my/participate';
 import Topic from './views/topic';
 
 import createHashHistory from 'history/createHashHistory';
@@ -24,11 +25,11 @@ ReactDOM.render(
             <Route path="/register" component={Register}/>
             <Route path="/search" component={Search}/>
             <Route path="/posttheme" component={PostTheme}/>
+            <Route path="/participate" component={Participate}/>
             <Switch>
                 <Route exact path="/topic" component={Topic}/>
                 <Route path="/topic/reply" component={Reply}/>
             </Switch>
-
         </div>
     </Router>
    , document.getElementById('root'));
