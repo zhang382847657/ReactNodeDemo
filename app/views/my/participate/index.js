@@ -6,6 +6,8 @@
 import React, {Component} from "react";
 import "./index.less";
 import {Flex, Icon, NavBar} from "antd-mobile";
+import createHashHistory from 'history/createHashHistory';
+const history = createHashHistory();
 
 
 const dataList = [
@@ -74,6 +76,7 @@ export default class Participate extends Component {
     constructor(props) {
         super(props);
         this.state = {}
+        this._gotoTopicDetail = this._gotoTopicDetail.bind(this)
     }
 
     componentDidMount() {
@@ -82,12 +85,23 @@ export default class Participate extends Component {
     }
 
 
+
+    /***
+     * 跳转到话题详情页
+     * @private
+     */
+    _gotoTopicDetail(){
+        history.push("/topic");
+    }
+
+
+
     renderList() {
         let renderList = [];
         dataList.map((value, index) => {
             index++
             renderList.push(
-                <Flex align="start" className="list" key={index}>
+                <Flex align="start" className="list" key={index} onClick={this._gotoTopicDetail}>
                     <Flex.Item className="item">
                         <span className={index % 2 == 1 ? "sequence": "sequence1"}>{index > 9 ? index + 1 : "0" + index}</span>
                     </Flex.Item>
