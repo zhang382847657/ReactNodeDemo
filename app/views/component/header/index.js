@@ -12,6 +12,7 @@ export default class Header extends Component{
         super(props);
     }
     _handleOnLeftClick(){
+        console.log("点击了返回");
         if(this.props.navBarLeftIcon == "true"){
             window.history.go(-1)
         }
