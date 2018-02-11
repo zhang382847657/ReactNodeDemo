@@ -18,12 +18,12 @@ const data = [
 
     },
     {
-        icon:"edit",
+        icon:"commenting-o",
         text:"我参与过的话题",
         url:"/participate"
     },
     {
-        icon:"edit",
+        icon:"cog",
         text:"设置"
     },
 ]
