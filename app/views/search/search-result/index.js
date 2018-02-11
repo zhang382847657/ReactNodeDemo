@@ -1,15 +1,14 @@
-
 /**
- * Created by zhouxin on 2018/2/7.
+ * Created by zhouxin on 2018/2/11.
  */
+
 
 import React, {Component} from "react";
 import "./index.less";
-import {Flex} from "antd-mobile";
+import {Flex,NavBar,InputItem,Icon} from "antd-mobile";
 import createHashHistory from "history/createHashHistory";
-import Header from "../../component/header";
 const history = createHashHistory();
-
+import Header from "../../component/header";
 
 const dataList = [
     {
@@ -73,7 +72,7 @@ const dataList = [
         img: "http://bpic.588ku.com/back_pic/00/02/62/935619c550f2490.jpg!ww800"
     }
 ]
-export default class Participate extends Component {
+export default class SearchResult extends Component {
     constructor(props) {
         super(props);
         this.state = {}
@@ -103,17 +102,16 @@ export default class Participate extends Component {
             index++
             renderList.push(
                 <Flex align="start" className="list" key={index} onClick={this._gotoTopicDetail}>
-                    <Flex.Item className="item">
-                        <span className={index % 2 == 1 ? "sequence": "sequence1"}>{index > 9 ? index + 1 : "0" + index}</span>
-                    </Flex.Item>
                     <Flex.Item className="item-title">
                         <div className="item-title-subset">{value.title}</div>
-                        <p>{value.hot}万热度-{value.watch}万阅读</p>
+                        <p>这里显示正文的名称啦啦啦啦啦啦啦啦</p>
+                        <p>565赞同 * 117评论</p>
                     </Flex.Item>
 
-                    <Flex.Item className="item-img">
-                        <img src={value.img}/>
-                    </Flex.Item>
+
+                    {/*<Flex.Item className="item-img">*/}
+                        {/*<img src={value.img}/>*/}
+                    {/*</Flex.Item>*/}
                 </Flex>
             )
         })
@@ -124,9 +122,11 @@ export default class Participate extends Component {
     render() {
         return (
             <div >
-                <Header navBarText="我参与过的话题" />
-                <div className="participate">
-                    <div className="padding-div">
+                <Header navBarText="搜索到的主题" />
+
+                <div className="searchResult">
+                    <div></div>
+                    <div>
                         {this.renderList()}
                     </div>
                 </div>

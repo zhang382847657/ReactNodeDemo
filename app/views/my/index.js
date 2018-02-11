@@ -63,7 +63,7 @@ export default class My extends Component {
                     </div>
                     <WhiteSpace/>
 
-                    <Grid data={data} activeStyle={false} />
+                    <Grid data={data} activeStyle={false} onClick={this.click}/>
 
                 </div>
 
