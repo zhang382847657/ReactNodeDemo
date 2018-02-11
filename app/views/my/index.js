@@ -13,11 +13,14 @@ const history = createHashHistory();
 const data = [
     {
         icon:"edit",
-        text:"发布话题"
+        text:"发布话题",
+        url:"/posttheme"
+
     },
     {
         icon:"edit",
-        text:"我参与过的话题"
+        text:"我参与过的话题",
+        url:"/participate"
     },
     {
         icon:"edit",
@@ -36,6 +39,7 @@ export default class My extends Component {
         this._renderItem = this._renderItem.bind(this);
         this._loginClick = this._loginClick.bind(this);
         this._renderHeader = this._renderHeader.bind(this);
+        this._gridItemClick = this._gridItemClick.bind(this);
 
 
     }
@@ -69,6 +73,17 @@ export default class My extends Component {
                 </div>
             </div>
         )
+    }
+
+    /***
+     * Grid点击事件
+     * @param elem 元素
+     * @param index 下标
+     * @private
+     */
+
+    _gridItemClick(elem, index){
+        history.push(data[index].url);
     }
 
 
@@ -117,6 +132,7 @@ export default class My extends Component {
                     <Grid data={data}
                           columnNum={4}
                           renderItem={this._renderItem}
+                          onClick={this._gridItemClick}
                     />
 
                 </div>
