@@ -3,12 +3,63 @@
   padding-top: 45px;
 
   .rn-my-header {
+    background-color: white;
     height: 150px;
+    display:flex;
+    padding: 20px;
+
+    img {
+      width: 80px;
+      height: 80px;
+      border-radius: 40px;
+      margin-right: 10px;
+    }
+
+
+    .phone {
+      margin-top: 10px;
+      margin-bottom: 15px;
+      color: @fontColor;
+      font-size: @fontSize2;
+
+    }
+
+    .abstract {
+      color: @fontColor3;
+      font-size: @fontSize3;
+    }
+
+
+
+
 
 
     .login-button {
       width: 150px;
+      background-color: @themeColor3;
+      color: white;
     }
+  }
+
+  .login {
+    justify-content:center;
+    align-items:center;
+  }
+
+
+  .grid-item {
+    padding: 10px;
+    font-size: 22px;
+    color: @themeColor2;
+
+    .sub-title {
+
+      font-size: @fontSize4;
+      color: @fontColor2;
+      margin-top: 6px;
+
+    }
+
   }
 
 }

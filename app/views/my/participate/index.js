@@ -5,10 +5,11 @@
 
 import React, {Component} from "react";
 import "./index.less";
-import {Flex} from "antd-mobile";
-import createHashHistory from "history/createHashHistory";
-import Header from "../../component/header";
+import {Flex, Icon, NavBar,WhiteSpace} from "antd-mobile";
+import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory();
+import Header from "../../component/header";
+import MyListView from '../../component/listview';
 
 
 const dataList = [
@@ -76,7 +77,11 @@ const dataList = [
 export default class Participate extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+
+        };
+
+        this._renderItem = this._renderItem.bind(this);
         this._gotoTopicDetail = this._gotoTopicDetail.bind(this)
     }
 
@@ -96,40 +101,41 @@ export default class Participate extends Component {
     }
 
 
+    _renderItem(rowData, sectionID, rowID){
 
-    renderList() {
-        let renderList = [];
-        dataList.map((value, index) => {
-            index++
-            renderList.push(
-                <Flex align="start" className="list" key={index} onClick={this._gotoTopicDetail}>
-                    <Flex.Item className="item">
-                        <span className={index % 2 == 1 ? "sequence": "sequence1"}>{index > 9 ? index + 1 : "0" + index}</span>
-                    </Flex.Item>
-                    <Flex.Item className="item-title">
-                        <div className="item-title-subset">{value.title}</div>
-                        <p>{value.hot}万热度-{value.watch}万阅读</p>
-                    </Flex.Item>
+        return(
+            <Flex align="start" className="list" key={rowID} onClick={this._gotoTopicDetail}>
+                <Flex.Item className="item">
+                    <span className={parseInt(rowID) % 2 == 1 ? "sequence": "sequence1"}>{parseInt(rowID) > 9 ? parseInt(rowID) + 1 : "0" + parseInt(rowID)}</span>
+                </Flex.Item>
+                <Flex.Item className="item-title">
+                    <div className="item-title-subset">{rowData.title}</div>
+                    <p>{rowData.hot}万热度-{rowData.watch}万阅读</p>
+                </Flex.Item>
 
-                    <Flex.Item className="item-img">
-                        <img src={value.img}/>
-                    </Flex.Item>
-                </Flex>
-            )
-        })
-        return renderList;
+                <Flex.Item className="item-img">
+                    <img src={rowData.img}/>
+                </Flex.Item>
+            </Flex>
+        )
 
     }
 
+
     render() {
         return (
-            <div >
+            <div className="participate">
                 <Header navBarText="我参与过的话题" />
-                <div className="participate">
-                    <div className="padding-div">
-                        {this.renderList()}
-                    </div>
+                <div className="padding-div">
+
+                    <MyListView url="http://"
+                                method="GET"
+                                pageSize={10}
+                                dataSource={dataList}
+                                renderRow={this._renderItem}/>
+
                 </div>
+
             </div>
 
 

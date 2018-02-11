@@ -1,6 +1,7 @@
 
 .participate {
-  padding: 10px 8px;
+
+
   .padding-div{
     padding-top: 45px;
   }
@@ -8,52 +9,57 @@
 
   .list{
     border-bottom: 1px solid #E0E0E0;
-    margin-top: 10px;
-    background-color: white;
+    padding: 10px;
+
+    .item {
+      flex: inherit;
+      width: 13px;
+      text-align: center;
+      .sequence{
+        color: red;
+        font-weight: 900;
+      }
+
+      .sequence1{
+        color: #F75000;
+        font-weight: 900;
+      }
+      .sequence2{
+        color: #FF9224;
+        font-weight: 900;
+      }
+    }
+
+
+
+    .item-title {
+      .item-title-subset{
+        font-size: 15px;
+      }
+      p{
+        font-size: 10px;
+        color:#ADADAD;
+        margin-top: 15px;
+      }
+
+    }
+
+    .item-img {
+      flex: inherit;
+      width: 90px;
+      height: 64px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        border: 0;
+        margin: auto;
+      }
+    }
+
   }
-  .item {
-    flex: inherit;
-    width: 13px;
-    text-align: center;
-    .sequence{
-      color: red;
-      font-weight: 900;
-    }
 
-    .sequence1{
-      color: #F75000;
-      font-weight: 900;
-    }
-    .sequence2{
-      color: #FF9224;
-      font-weight: 900;
-    }
-  }
 
-  .item-title {
-    .item-title-subset{
-      font-size: 15px;
-    }
-    p{
-      font-size: 10px;
-      color:#ADADAD;
-      margin-top: 15px;
-    }
-
-  }
-
-  .item-img {
-    flex: inherit;
-    width: 90px;
-    height: 64px;
-
-    img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      border: 0;
-      margin: auto;
-    }
-  }
 
 }
