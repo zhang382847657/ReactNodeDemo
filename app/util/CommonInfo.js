@@ -10,9 +10,7 @@ let CommonInfo = function(){}
 /**
  *检查是否登录
  * */
-CommonInfo.checkLogin = checkLogin;
-
-function checkLogin() {
+CommonInfo.checkLogin = function checkLogin() {
     let token = getToken();
     if(token && token != 'null' && token != "undefined"){
         return true;
