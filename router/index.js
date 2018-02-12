@@ -2,7 +2,7 @@
  * Created by zhanglin on 2018/2/12.
  */
 var fs = require('fs');
-var database = require('../database/index.js');
+var db = require("../database/index");
 
 
 /***
@@ -10,11 +10,11 @@ var database = require('../database/index.js');
  * @param req
  * @param res
  */
-export function login(req,res){
-
-    database.query("use database");
-    database.query("select * from user", function(err, rs, fields){
-        //处理数据
+exports.login = (req, res) => {
+     console.log("zhouxin")
+    db.query("select * from user", function (error, results, fields) {
+        if (error) throw error;
+        console.log('The solution is: ', results[0]);
     });
 
 }
@@ -24,6 +24,9 @@ export function login(req,res){
  * @param req
  * @param res
  */
-export function register(req,res){
+exports
+function register(req, res) {
 
 }
+
+
