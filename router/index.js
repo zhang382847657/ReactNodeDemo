@@ -2,6 +2,7 @@
  * Created by zhanglin on 2018/2/12.
  */
 var fs = require('fs');
+var db = require("../database/index");
 
 
 /***
@@ -9,7 +10,12 @@ var fs = require('fs');
  * @param req
  * @param res
  */
-export function login(req,res){
+exports.login = (req, res) => {
+     console.log("zhouxin")
+    db.query("select * from user", function (error, results, fields) {
+        if (error) throw error;
+        console.log('The solution is: ', results[0]);
+    });
 
 }
 
@@ -18,6 +24,9 @@ export function login(req,res){
  * @param req
  * @param res
  */
-export function register(req,res){
+exports
+function register(req, res) {
 
 }
+
+

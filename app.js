@@ -3,8 +3,9 @@
  */
 var express = require('express');
 var app = express();
-var router = require('./router/index.js');
 var database = require('./database/index.js');
+var router = require('./router/index.js');
+
 
 app.get('/login', router.login);
 
