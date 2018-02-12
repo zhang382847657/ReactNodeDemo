@@ -3,9 +3,12 @@
  */
 
 import { Toast } from 'antd-mobile';
+import Constant from './Constant';
 
 
 export default function Request(url, data, method,needToken) { //未传没有，有 true， false
+
+    let finalUrl = Constant.InterfaceUrl + url; //拼接完整的路径
 
     let urlData = "";
     if(data){
@@ -57,13 +60,13 @@ export default function Request(url, data, method,needToken) { //未传没有，
 
     if(method != 'POST'){
         delete  init.body;
-        url= url +"?"+urlData;
+        finalUrl= finalUrl +"?"+urlData;
     }
 
 
     return new Promise((resolve,reject)=>
     {
-        fetch(url, init
+        fetch(finalUrl, init
         ).then(response => {
             return response.json().then(json => ({json, response}))
         }).then(({json, response}) => {
