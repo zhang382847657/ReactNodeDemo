@@ -7,6 +7,7 @@ import { Toast } from 'antd-mobile';
 
 export default function Request(url, data, method,needToken) { //未传没有，有 true， false
 
+
     let urlData = "";
     if(data){
         if(!(typeof data == 'string')){
@@ -65,8 +66,10 @@ export default function Request(url, data, method,needToken) { //未传没有，
     {
         fetch(url, init
         ).then(response => {
+            console.log("response==>",response)
             return response.json().then(json => ({json, response}))
         }).then(({json, response}) => {
+            console.log("response==>",response,",json:",json)
             if (!response.ok) {
                 return Promise.reject(json)
             }

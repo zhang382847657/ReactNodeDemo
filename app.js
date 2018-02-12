@@ -5,6 +5,9 @@ var express = require('express');
 var app = express();
 var database = require('./database/index.js');
 var router = require('./router/index.js');
+var cors = require('cors');
+
+app.use(cors());
 
 
 app.get('/login', router.login);

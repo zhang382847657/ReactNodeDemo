@@ -11,10 +11,17 @@ var db = require("../database/index");
  * @param res
  */
 exports.login = (req, res) => {
-     console.log("zhouxin")
+    console.log("res===》", req);
+
+
     db.query("select * from user", function (error, results, fields) {
         if (error) throw error;
-        console.log('The solution is: ', results[0]);
+        let dataList = {};
+        dataList.result = "ok";
+        dataList.data = results[0];
+        res.json(dataList)
+        console.log('zhouxin=====>', results[0]);
+
     });
 
 }

@@ -62,8 +62,8 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: __dirname + "/app/index.tmpl.html" //这边是生成模板html和编译的JS
         }),
-        new webpack.optimize.OccurrenceOrderPlugin(),//这2个作为压缩JS
-        new webpack.optimize.UglifyJsPlugin(),
+        // new webpack.optimize.OccurrenceOrderPlugin(),//这2个作为压缩JS
+        // new webpack.optimize.UglifyJsPlugin(),
         new CleanWebpackPlugin('build/*.*', {
             root: __dirname,
             verbose: true,

@@ -44,6 +44,7 @@ export default class Login extends Component {
     _loginClick(){
 
         webapi.login(this.state.phone,this.state.password).then((response)=>{
+            console.log("res==>:",response)
 
         })
     }

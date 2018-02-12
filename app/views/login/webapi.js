@@ -10,5 +10,5 @@ exports.login = (phone,password) => {
         phone:phone,
         password:password
     };
-    return Request("/login",param,"GET",false);
+    return Request("http://127.0.0.1:3000/login",param,"GET",false);
 }
