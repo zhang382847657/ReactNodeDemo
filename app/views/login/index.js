@@ -21,20 +21,18 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div>
+            <div className="login-div">
 
                 <div className="login-header">登录</div>
 
                 <div className="login-center">
 
-                    <InputItem className="login-input"
-                               placeholder="请输入用户名">
-                        <div className="left-icon" style={{backgroundImage: 'url(https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png)'}}/>
+                    <InputItem placeholder="请输入手机号">
+                        <i className="fa fa-phone"/>
                     </InputItem>
 
-                    <InputItem className="login-input"
-                               placeholder="请输入密码">
-                        <div className="left-icon" style={{backgroundImage: 'url(https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png)'}}/>
+                    <InputItem placeholder="请输入短信验证码">
+                        <i className="fa fa-lock "/>
                     </InputItem>
 
 
