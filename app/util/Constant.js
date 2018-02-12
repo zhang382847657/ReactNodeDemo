@@ -5,7 +5,7 @@
 const Constant = {}
 
 
-Constant.InterfaceUrl = "localhost:3000";
+Constant.InterfaceUrl = "http://localhost:3000";
 Constant.LASTWEIXINHREF = "lastHref";
 Constant.USERLOGININFO = "userLoginInfo";
 Constant.TOKEN = "token";
