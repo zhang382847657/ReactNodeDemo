@@ -4,6 +4,7 @@
 
 import React, {Component} from "react";
 import {Button, Checkbox, InputItem} from "antd-mobile";
+import webapi from './webapi';
 import "./index.less";
 
 
@@ -12,10 +13,39 @@ export default class Login extends Component {
         super(props);
 
         this.state = {
+            phone:'',
+            password:''
 
         };
-        this.nowToRegister = this.nowToRegister.bind(this)
+        this.nowToRegister = this.nowToRegister.bind(this);
+        this._phoneOnChange = this._phoneOnChange.bind(this);
+        this._passwordOnChange = this._passwordOnChange.bind(this);
+        this._loginClick = this._loginClick.bind(this);
 
+    }
+
+
+    _phoneOnChange(value){
+        this.setState({
+            phone:value
+        })
+    }
+
+    _passwordOnChange(value){
+        this.setState({
+            password:value
+        })
+    }
+
+    /***
+     * 登录
+     * @private
+     */
+    _loginClick(){
+
+        webapi.login(this.state.phone,this.state.password).then((response)=>{
+
+        })
     }
 
 
@@ -27,11 +57,14 @@ export default class Login extends Component {
 
                 <div className="login-center">
 
-                    <InputItem placeholder="请输入手机号">
+                    <InputItem placeholder="请输入手机号" value={this.state.phone} onChange={this._phoneOnChange}>
                         <i className="fa fa-phone"/>
                     </InputItem>
 
-                    <InputItem placeholder="请输入短信验证码">
+                    <InputItem type="password"
+                               placeholder="请输入密码"
+                               value={this.state.password}
+                               onChange={this._passwordOnChange}>
                         <i className="fa fa-lock "/>
                     </InputItem>
 
@@ -41,7 +74,7 @@ export default class Login extends Component {
                         记住账号
                     </Checkbox.AgreeItem>
 
-                    <Button type="primary" className="login-button">登录</Button>
+                    <Button type="primary" className="login-button" onClick={this._loginClick}>登录</Button>
 
 
                 </div>

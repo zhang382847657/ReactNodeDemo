@@ -2,6 +2,7 @@
  * Created by zhanglin on 2018/2/12.
  */
 var fs = require('fs');
+var database = require('../database/index.js');
 
 
 /***
@@ -10,6 +11,11 @@ var fs = require('fs');
  * @param res
  */
 export function login(req,res){
+
+    database.query("use database");
+    database.query("select * from user", function(err, rs, fields){
+        //处理数据
+    });
 
 }
 

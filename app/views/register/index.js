@@ -30,17 +30,11 @@ export default class Register extends Component {
                 <div className="write-data">
                     <InputItem
                         className="inp"
-                        placeholder="姓名"
+                        placeholder="手机号"
                         moneyKeyboardAlign="left"
                     >
                         <img className="image" src="https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png"/>
                     </InputItem>
-                    <InputItem
-                        className="inp"
-                        placeholder="请输入邮箱"
-                        moneyKeyboardAlign="left"
-                    > <img className="image"
-                           src="https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png"/></InputItem>
                     <InputItem
                         className="inp"
                         placeholder="请输入密码"
