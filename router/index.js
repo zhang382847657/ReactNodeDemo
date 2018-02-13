@@ -2,6 +2,7 @@
  * Created by zhanglin on 2018/2/12.
  */
 var db = require("../database/index.js");
+var token = require("../database/token.js");
 
 /***
  * 返回最终的JSON结构体
@@ -39,6 +40,7 @@ exports.login = (req, res) => {
     let phone = req.query.phone;
     let password = req.query.password;
 
+    /** 先查询当前手机号是否存在 */
     db.query(`select * from user where phone=${phone}`,function (error, results, fields) {
 
         if (error) throw error;
@@ -49,6 +51,8 @@ exports.login = (req, res) => {
             let json = jsonData(false,null,"当前用户不存在");
             res.json(json);
         }else{
+
+            /** 再查密码输入的是否正确 */
             db.query(`select * from user where phone=${phone} and password=${password}`,function (error2, results2, fields2) {
 
                 console.log("results2 == ",results2);
@@ -58,8 +62,24 @@ exports.login = (req, res) => {
                     let json = jsonData(false,null,"密码错误");
                     res.json(json);
                 }else{
-                    let json = jsonData(true,results2[0]);
-                    res.json(json);
+
+                    let tokenString = token.createToken(results2[0],2); //生成token
+                    console.log("tokenString == ",tokenString);
+
+                    /** 生成TOEKN，并更新token字段到当前用户 */
+                    db.query(`update user set token = '${tokenString}' where phone=${phone}`,function (error3, results3, fields3) {
+
+                        console.log("results3 == ",results3);
+                        if (error3) throw error3;
+
+                        let finalData = results2[0];
+                        finalData["token"] = tokenString;
+                        let json = jsonData(true,finalData);
+                        res.json(json);
+
+                    })
+
+
                 }
 
             })

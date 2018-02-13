@@ -45,13 +45,6 @@ export default class Home extends Component {
             scrollHeight:finalHeight,
         });
 
-        setTimeout(() => {
-            this.setState({
-                dataList: this.state.dataList.cloneWithRows(dataSource),
-                refreshing:false
-            });
-        }, 600);
-
     }
 
 
@@ -103,7 +96,6 @@ export default class Home extends Component {
                     <MyListView url="/topic/queryList"
                                 method="GET"
                                 pageSize={10}
-                               // dataSource={dataSource}
                                 needToken={false}
                                 renderRow={this._renderItem}
                                 renderSeparator = {()=>{
