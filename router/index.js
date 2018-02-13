@@ -135,3 +135,36 @@ exports.topicDetail = (req, res) => {
 }
 
 
+/***
+ * 查询评论列表
+ * @param req
+ * @param res
+ */
+exports.commentList = (req, res) => {
+
+    console.log("请求参数 == ",req.query);
+    let id = req.query.id;
+    let pageSize = req.query.pageSize;
+    let pageNum = req.query.pageNum;
+
+    db.query(`select * from comment where topicId = ${id} limit ${pageNum*pageSize},${(pageNum+1)*pageSize} `,function (error, results, fields) {
+
+        if (error) throw error;
+        console.log("results == ",results);
+
+        db.query(`select count(*) from comment where topicId = ${id}`,function (error2, results2, fields2) {
+
+            let fianlData = {
+                dataList:results,
+                totalCount:results2[0]["count(*)"]
+            };
+            let json = jsonData(true,fianlData);
+            res.json(json);
+
+        });
+    })
+
+
+}
+
+
