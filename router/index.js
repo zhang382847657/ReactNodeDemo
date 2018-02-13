@@ -40,7 +40,7 @@ exports.login = (req, res) => {
     let phone = req.query.phone;
     let password = req.query.password;
 
-    db.query(`select * from user where phone = ${phone}`,function (error, results, fields) {
+    db.query(`select * from user where phone=${phone}`,function (error, results, fields) {
 
         if (error) throw error;
 
@@ -51,12 +51,12 @@ exports.login = (req, res) => {
             let json = jsonData(false,null,"当前用户不存在");
             res.json(json);
         }else{
-            db.query(`select * from user where phone = ${phone} and password = ${password}`,function (error, results2, fields) {
+            db.query(`select * from user where phone=${phone} and password=${password}`,function (error, results2, fields) {
 
+                console.log("results2 == ",results2);
                 if (error) throw error;
 
-                if(results == undefined){
-                    console.log("密码错误");
+                if(results.length == 0){
                     let json = jsonData(false,null,"密码错误");
                     res.json(json);
                 }else{
