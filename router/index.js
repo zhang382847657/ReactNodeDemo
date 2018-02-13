@@ -13,7 +13,7 @@ var db = require("../database/index.js");
 function jsonData(result,data,msg) {
 
     let json = {
-        result:result
+        result:result == true ? "ok" : "failed"
     };
 
     if(result == true){
@@ -27,6 +27,7 @@ function jsonData(result,data,msg) {
     return json;
 
 }
+
 
 
 /***
@@ -43,7 +44,6 @@ exports.login = (req, res) => {
     db.query(`select * from user where phone=${phone}`,function (error, results, fields) {
 
         if (error) throw error;
-
         console.log("results == ",results);
 
 
@@ -56,7 +56,7 @@ exports.login = (req, res) => {
                 console.log("results2 == ",results2);
                 if (error) throw error;
 
-                if(results.length == 0){
+                if(results2.length == 0){
                     let json = jsonData(false,null,"密码错误");
                     res.json(json);
                 }else{
