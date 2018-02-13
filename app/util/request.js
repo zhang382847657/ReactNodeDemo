@@ -63,7 +63,6 @@ export default function Request(url, data, method,needToken) { //未传没有，
         finalUrl= finalUrl +"?"+urlData;
     }
 
-
     return new Promise((resolve,reject)=>
     {
         fetch(finalUrl, init

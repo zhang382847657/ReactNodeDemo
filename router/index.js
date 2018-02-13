@@ -22,8 +22,6 @@ function jsonData(result,data,msg) {
         json["msg"] = msg
     }
 
-    console.log("json == ",json);
-
     return json;
 
 }
@@ -51,10 +49,10 @@ exports.login = (req, res) => {
             let json = jsonData(false,null,"当前用户不存在");
             res.json(json);
         }else{
-            db.query(`select * from user where phone=${phone} and password=${password}`,function (error, results2, fields) {
+            db.query(`select * from user where phone=${phone} and password=${password}`,function (error2, results2, fields2) {
 
                 console.log("results2 == ",results2);
-                if (error) throw error;
+                if (error2) throw error2;
 
                 if(results2.length == 0){
                     let json = jsonData(false,null,"密码错误");
@@ -78,6 +76,39 @@ exports.login = (req, res) => {
  */
 exports
 function register(req, res) {
+
+}
+
+
+/***
+ * 查询所有话题
+ * @param req
+ * @param res
+ */
+exports.topicList = (req, res) => {
+
+    console.log("请求参数 == ",req.query);
+    let pageSize = req.query.pageSize;
+    let pageNum = req.query.pageNum;
+
+    db.query(`select * from topic limit ${pageNum*pageSize},${(pageNum+1)*pageSize} `,function (error, results, fields) {
+
+        if (error) throw error;
+        console.log("results == ",results);
+
+        db.query(`select count(*) from topic`,function (error2, results2, fields2) {
+
+            let fianlData = {
+                dataList:results,
+                totalCount:results2[0]["count(*)"]
+            };
+            let json = jsonData(true,fianlData);
+            res.json(json);
+
+        });
+
+    })
+
 
 }
 

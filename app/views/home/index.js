@@ -147,15 +147,21 @@ export default class Home extends Component {
      * @private
      */
     _renderItem(rowData, sectionID, rowID){
+
+        let imageUrl = null;
+        if(rowData.images){
+            imageUrl = rowData.images.split(',')[0];
+        }
+
         return(
             <Flex className="list-item" key={rowData.id} onClick={this._gotoTopicDetail}>
                 <Flex.Item>
                     <Flex direction="column" justify="around" align="start">
                         <span style={{fontSize:"18px"}}>{rowData.title}</span>
-                        <span style={{color:"#999"}}>{`${rowData.commentNum}条吐槽  ${rowData.zanNum}个赞`}</span>
+                        <span style={{color:"#999"}}>{`${rowData.commentNum || 0}条吐槽  ${rowData.like}个赞`}</span>
                     </Flex>
                 </Flex.Item>
-                <img className="list-item-img" src={rowData.img}/>
+                {imageUrl?<img className="list-item-img" src={imageUrl}/>:null}
             </Flex>
         )
     }
@@ -177,10 +183,10 @@ export default class Home extends Component {
                 <Header/>
                 <div className="rn-home-div">
                     <WhiteSpace/>
-                    <MyListView url="http://"
+                    <MyListView url="/topic/queryList"
                                 method="GET"
                                 pageSize={10}
-                                dataSource={dataSource}
+                               // dataSource={dataSource}
                                 needToken={false}
                                 renderRow={this._renderItem}
                                 renderSeparator = {()=>{

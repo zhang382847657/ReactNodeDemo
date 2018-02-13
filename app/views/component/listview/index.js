@@ -4,6 +4,8 @@
 import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import {PullToRefresh,ListView} from 'antd-mobile';
+import Request from '../../../util/request';
+
 import './index.less';
 
 
@@ -98,27 +100,57 @@ export default class MyListView extends Component {
         finalParam["pageNum"] = pageNum;
 
         //TODO: 目前只是用计时器来模拟请求数据，以后改成fetch请求
-        setTimeout(() => {
 
+        Request(that.props.url,finalParam,that.props.method,that.props.needToken).then((response)=>{
+
+            console.log("请求结果 == ",response);
 
             if(loadType == "refresh"){ //如果是下拉刷新
-                that.dataList = that.props.dataSource;
+                that.dataList = response.dataList;
                 that.setState({
                     dataList:that.state.dataList.cloneWithRows(that.dataList),
                     refreshing: false,
                     isLoading: false,
-                    hasMore:(pageNum+1)*that.props.pageSize < 40 ? true : false
+                    hasMore:(pageNum+1)*that.props.pageSize < response.totalCount ? true : false
                 })
             }else { //如果是上拉刷新
-                that.dataList = that.dataList.concat(that.props.dataSource);
+                that.dataList = that.dataList.concat(response.dataList);
                 that.setState({
                     dataList:that.state.dataList.cloneWithRows(that.dataList),
                     isLoading: false,
-                    hasMore:(pageNum+1)*that.props.pageSize < 40 ? true : false
+                    hasMore:(pageNum+1)*that.props.pageSize < response.totalCount ? true : false
                 })
             }
 
-        }, 600);
+        },(error)=>{
+            that.setState({
+                refreshing:false,
+                isLoading: false,
+                hasMore:false
+            });
+        });
+
+        // setTimeout(() => {
+        //
+        //
+        //     if(loadType == "refresh"){ //如果是下拉刷新
+        //         that.dataList = that.props.dataSource;
+        //         that.setState({
+        //             dataList:that.state.dataList.cloneWithRows(that.dataList),
+        //             refreshing: false,
+        //             isLoading: false,
+        //             hasMore:(pageNum+1)*that.props.pageSize < 40 ? true : false
+        //         })
+        //     }else { //如果是上拉刷新
+        //         that.dataList = that.dataList.concat(that.props.dataSource);
+        //         that.setState({
+        //             dataList:that.state.dataList.cloneWithRows(that.dataList),
+        //             isLoading: false,
+        //             hasMore:(pageNum+1)*that.props.pageSize < 40 ? true : false
+        //         })
+        //     }
+        //
+        // }, 600);
 
     }
 

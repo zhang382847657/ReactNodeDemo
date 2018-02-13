@@ -9,8 +9,10 @@ var cors = require('cors');
 
 app.use(cors());
 
-
+/** 登录 */
 app.get('/login', router.login);
+/** 查询话题列表 */
+app.get('/topic/queryList', router.topicList);
 
 app.listen(3000, () => {
     console.log('node服务器监听3000端口成功');
