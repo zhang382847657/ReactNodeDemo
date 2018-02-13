@@ -6,6 +6,7 @@ import React, {Component} from "react";
 import {Button, Checkbox, InputItem} from "antd-mobile";
 import webapi from './webapi';
 import "./index.less";
+import CommonInfo from '../../util/CommonInfo';
 
 
 export default class Login extends Component {
@@ -45,6 +46,9 @@ export default class Login extends Component {
 
         webapi.login(this.state.phone,this.state.password).then((response)=>{
             console.log("登录结果 == ",response)
+
+            //保存用户信息
+            CommonInfo.saveLoginInfo(response);
 
         })
     }

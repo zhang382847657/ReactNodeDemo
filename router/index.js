@@ -48,12 +48,14 @@ exports.login = (req, res) => {
 
 
         if(results.length == 0){
+
             let json = jsonData(false,null,"当前用户不存在");
             res.json(json);
+
         }else{
 
             /** 再查密码输入的是否正确 */
-            db.query(`select * from user where phone=${phone} and password=${password}`,function (error2, results2, fields2) {
+            db.query(`select id,phone,abstract,createTime,password from user where phone=${phone} and password=${password}`,function (error2, results2, fields2) {
 
                 console.log("results2 == ",results2);
                 if (error2) throw error2;
@@ -72,8 +74,10 @@ exports.login = (req, res) => {
                         console.log("results3 == ",results3);
                         if (error3) throw error3;
 
-                        let finalData = results2[0];
-                        finalData["token"] = tokenString;
+                        let finalData = {
+                            user: results2[0],
+                            token: tokenString
+                        } ;
                         let json = jsonData(true,finalData);
                         res.json(json);
 

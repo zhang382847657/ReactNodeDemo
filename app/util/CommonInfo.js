@@ -68,11 +68,12 @@ CommonInfo.getLoginInfo = function getLoginInfo(){
 }
 
 
-CommonInfo.saveToken = function saveToken(token) {
+CommonInfo.saveToken = saveToken;
+function saveToken (token) {
     localStorageWrap.setItem(Constants.TOKEN,token);
 };
 
-CommonInfo.getToken = function getToken() {
+CommonInfo.getToken = function () {
     return localStorageWrap.getItem(Constants.TOKEN);
 }
 
@@ -88,17 +89,17 @@ CommonInfo.removeToken = function () {
  * */
 let localStorageWrap = {
     setItem:function(key,value){
-        localStorage.setItem(appendDuserCode(key),value);
+        localStorage.setItem(key,value);
     },
     getItem:function(key){
-        return localStorage.getItem(appendDuserCode(key));
+        return localStorage.getItem(key);
     },
     removeItem:function(key){
-        localStorage.removeItem(appendDuserCode(key));
+        localStorage.removeItem(key);
     },
     clear: function (excludekey) {
         //只能清除当前用户下所有数据信息
-        let userKeyPrefix = appendDuserCode("");
+        let userKeyPrefix = "";
         console.log(userKeyPrefix);
         for(let i=localStorage.length - 1 ; i >=0; i--){
             let key = localStorage.key(i);
@@ -132,13 +133,13 @@ CommonInfo.localStorage = localStorageWrap;
  * */
 let sessionStorageWrap = {
     setItem:function(key,value){
-        sessionStorage.setItem(appendDuserCode(key),value);
+        sessionStorage.setItem(key,value);
     },
     getItem:function(key){
-        return sessionStorage.getItem(appendDuserCode(key));
+        return sessionStorage.getItem(key);
     },
     removeItem:function(key){
-        sessionStorage.removeItem(appendDuserCode(key));
+        sessionStorage.removeItem(key);
     }
 };
 

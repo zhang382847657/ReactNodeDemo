@@ -4,6 +4,7 @@
 
 import { Toast } from 'antd-mobile';
 import Constant from './Constant';
+import CommonInfo from './CommonInfo';
 
 
 export default function Request(url, data, method,needToken) { //未传没有，有 true， false
@@ -52,7 +53,7 @@ export default function Request(url, data, method,needToken) { //未传没有，
                 //FIXME: 如果是正式环境，把这个注释解开 'Authorization': "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJDMDAwMzYwNSIsImV4cCI6MTUxNjM0MzQ1NSwibmlja05hbWUiOiIxODU1MTYyNDgxNCIsInVzZXJUeXBlIjoxLCJzb3VyY2UiOjAsImR1c2VyQ29kZSI6IkQwMDAxNyJ9.MzYP66553v77lNDlfxntrk80tk2zPyABLW4PQRjKp2E",
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                Authorization:""
+                Authorization:CommonInfo.getToken()
             },
             body:JSON.stringify(data)
         }
