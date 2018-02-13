@@ -73,7 +73,8 @@ function saveToken (token) {
     localStorageWrap.setItem(Constants.TOKEN,token);
 };
 
-CommonInfo.getToken = function () {
+CommonInfo.getToken = getToken;
+function getToken () {
     return localStorageWrap.getItem(Constants.TOKEN);
 }
 

@@ -8,6 +8,7 @@ import './index.less';
 import Header from '../component/header';
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory();
+import CommonInfo from '../../util/CommonInfo';
 
 
 const data = [
@@ -94,9 +95,8 @@ export default class My extends Component {
      */
     _renderHeader(){
 
-        let isLogin = true;
 
-        if(isLogin){
+        if(CommonInfo.checkLogin()){
 
             return(
                 <div className="rn-my-header">
