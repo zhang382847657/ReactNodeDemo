@@ -3,7 +3,7 @@
  */
 var con = require("./index.js");
 
-let database = {}
+let database = function(){}
 
 
 function query(sql,tag,callback,flag) {
@@ -11,8 +11,6 @@ function query(sql,tag,callback,flag) {
     con.query(sql,function (error, results, fields) {
 
         if (error) throw error;
-
-        console.log("aaaa");
 
 
         /**
@@ -30,9 +28,15 @@ function query(sql,tag,callback,flag) {
         if(flag == "search") {
 
             if(tag == "array"){
-                json["data"] = results
+                json["data"] = results;
+                if(results == undefined){
+                    json["results"] = "failed";
+                }
             }else if (tag == "object"){
                 json["data"] = results[0];
+                if(results == undefined){
+                    json["results"] = "failed";
+                }
             }
 
             callback(json);
@@ -58,7 +62,6 @@ function query(sql,tag,callback,flag) {
  * @param callback  返回包装好的数据对象
  */
 database.search = function (sql,tag,callback) {
-    console.log("aaaa");
     query(sql,tag,callback,"search")
 }
 
@@ -96,4 +99,4 @@ database.add = function (sql,tag,callback) {
 
 
 
-module.export = database;
+module.exports = database;
