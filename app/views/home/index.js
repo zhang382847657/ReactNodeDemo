@@ -154,7 +154,7 @@ export default class Home extends Component {
         }
 
         return(
-            <Flex className="list-item" key={rowData.id} onClick={this._gotoTopicDetail}>
+            <Flex className="list-item" key={rowData.id} onClick={()=>{this._gotoTopicDetail(rowData.id)}}>
                 <Flex.Item>
                     <Flex direction="column" justify="around" align="start">
                         <span style={{fontSize:"18px"}}>{rowData.title}</span>
@@ -171,8 +171,8 @@ export default class Home extends Component {
      * 跳转到话题详情页
      * @private
      */
-    _gotoTopicDetail(){
-        history.push("/topic");
+    _gotoTopicDetail(id){
+        history.push(`/topic/${id}`);
     }
 
 

@@ -29,7 +29,7 @@ ReactDOM.render(
             <Route path="/participate" component={Participate}/>
             <Route path="/searchResult" component={SearchResult}/>
             <Switch>
-                <Route exact path="/topic" component={Topic}/>
+                <Route exact path="/topic/:id" component={Topic}/>
                 <Route path="/topic/reply" component={Reply}/>
             </Switch>
         </div>

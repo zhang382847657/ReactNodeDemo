@@ -9,6 +9,7 @@ import Header from '../component/header';
 import './index.less';
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory();
+import webapi from './webapi';
 
 
 
@@ -69,7 +70,7 @@ export default class Topic extends Component {
         super(props);
 
         this.state={
-
+            topic:{}
         };
 
 
@@ -82,25 +83,40 @@ export default class Topic extends Component {
 
     componentDidMount() {
 
-
+        let that = this;
+        webapi.topicDetail(this.props.match.params.id).then((response)=>{
+            console.log("话题详情 == ",response);
+            that.setState({
+                topic:response
+            })
+        })
 
     }
 
     _renderHeader(){
+
+        let imageViews = null;
+        if(this.state.topic.images){
+            imageViews = this.state.topic.images.split(',').map(function (value,index) {
+                return(
+                    <img className="content-img" src={value}/>
+                )
+            })
+        }
+
         return(
             <div>
                 <Flex className="rn-topic-content" direction="column">
-                    <span className="content-title">裕华区裕东街道人大代表之家和金马五社区联合开展了“送福到万家”活动 </span>
-                    <span className="content-content">日前，裕华区裕东街道人大代表之家和金马五社区联合开展了“送福到万家”活动，人大代表和书法爱好者一起挥毫泼墨，为社区的空巢老人、低保户、计生特殊家庭等书写春联和福字，并为他们献上节日的美好祝愿。本报首席记者 张震 摄</span>
-                    <img className="content-img" src="http://sjzrb.sjzdaily.com.cn/res/1/1/2018-02/08/08/res03_attpic_brief.jpg"/>
-                    <img className="content-img" src="http://sjzrb.sjzdaily.com.cn/res/1/1/2018-02/08/08/res05_attpic_brief.jpg"/>
+                    <span className="content-title">{this.state.topic.title} </span>
+                    <span className="content-content">{this.state.topic.content}</span>
+                    {imageViews}
                 </Flex>
 
                 <WhiteSpace/>
 
                 <Flex className="rn-topic-comment-title">
-                    <span>赞 876</span>
-                    <span className="comment-title">评论 2008</span>
+                    <span>赞 {this.state.topic.like}</span>
+                    <span className="comment-title">吐槽 0</span>
                 </Flex>
             </div>
         )

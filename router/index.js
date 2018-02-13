@@ -109,6 +109,28 @@ exports.topicList = (req, res) => {
 
     })
 
+}
+
+/***
+ * 查询话题详情
+ * @param req
+ * @param res
+ */
+exports.topicDetail = (req, res) => {
+
+    console.log("请求参数 == ",req.query);
+    let id = req.query.id;
+
+    db.query(`select * from topic where id = ${id} `,function (error, results, fields) {
+
+        if (error) throw error;
+        console.log("results == ",results);
+
+        let json = jsonData(true,results[0]);
+        res.json(json);
+
+    })
+
 
 }
 
