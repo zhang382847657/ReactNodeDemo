@@ -1,8 +1,7 @@
 /**
  * Created by zhanglin on 2018/2/12.
  */
-var fs = require('fs');
-var db = require("../database/index");
+var db = require("../database/database.js");
 
 
 /***
@@ -11,17 +10,10 @@ var db = require("../database/index");
  * @param res
  */
 exports.login = (req, res) => {
-    console.log("res===》", req);
 
-
-    db.query("select * from user", function (error, results, fields) {
-        if (error) throw error;
-        let dataList = {};
-        dataList.result = "ok";
-        dataList.data = results[0];
-        res.json(dataList)
-        console.log('zhouxin=====>', results[0]);
-
+    db.search("select * from user where id=1","object",(result)=>{
+        console.log("result == ",result);
+        res.json(result)
     });
 
 }
