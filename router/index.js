@@ -8,24 +8,50 @@ var db = require("../database/index.js");
 var token = require("../database/token.js");
 var moment = require("moment");
 
+const ErrorType = { //错误类型
+    NoLogin:{
+        code: 202,  //错误码
+        msg: "未登录"  //错误信息
+    },
+    LoginExpires:{
+        code: 203,
+        msg: "登录过期"
+    },
+    AccountExist:{
+        code: 204,
+        msg: "账号已经存在"
+    },
+    AccountNoExist:{
+        code: 205,
+        msg: "当前用户不存在"
+    },
+    PasswordError:{
+        code: 206,
+        msg: "密码错误"
+    }
+
+};
+
 /***
  * 返回最终的JSON结构体
  * @param result  成功还是失败  true | false
  * @param data 数据
  * @param msg  错误消息
+ * @param rescode 错误状态码
  * @return {}
  */
-function jsonData(result,data,msg) {
+function jsonData(result,data,msg,rescode) {
 
     let json = {
         result:result == true ? "ok" : "failed"
     };
 
     if(result == true){
-        json["data"] = data
-        json["msg"] = msg
+        json["data"] = data;
+        json["msg"] = msg;
     }else{
-        json["msg"] = msg
+        json["msg"] = msg;
+        json["rescode"] = rescode;
     }
 
     return json;
@@ -41,8 +67,14 @@ function jsonData(result,data,msg) {
 function checkToken(req, res) {
     let tokenString = req.get("Authorization"); //拿到token
 
+    if(tokenString == null || tokenString == "" || typeof tokenString == "undefined"){
+        let json = jsonData(false,null,ErrorType.NoLogin.msg,ErrorType.NoLogin.code);
+        res.json(json);
+        return false;
+    }
+
     if(token.checkToken(tokenString)) { //校验token是否过期
-        let json = jsonData(false,null,"登录过期");
+        let json = jsonData(false,null,ErrorType.LoginExpires.msg,ErrorType.LoginExpires.code);
         res.json(json);
         return false;
     }else{
@@ -50,6 +82,16 @@ function checkToken(req, res) {
     }
 }
 
+/***
+ * 通过解析token，拿到用户信息
+ * @param req
+ * @return 用户信息  id、手机号、密码、等等
+ */
+function getUserInfo(req) {
+    let tokenString = req.get("Authorization"); //拿到token
+    var resDecode = token.decodeToken(tokenString); //拿到payload对象
+    return resDecode.payload.data;
+}
 
 /**
  * 注册
@@ -58,12 +100,10 @@ exports.register = (req, res) => {
     let phone = req.query.phone;
     console.log("phone==>",phone)
     let password = req.query.password;
-    let createTime = moment(new Date()).format('YYYY-MM-DD hh:mm:ss');
-    console.log("createTime==》",createTime)
     db.query(`select count(1) from user where phone = ${phone}`, function (error, results, fields) {
         if (error) throw error;
         if (results[0]["count(1)"] > 0) {
-            let json = jsonData(false, null, "账号已经存在");
+            let json = jsonData(false, null, ErrorType.AccountExist.msg, ErrorType.AccountExist.code);
             res.json(json);
         } else {
             db.query(`insert into user (phone,password,createTime) values (${phone},${password},now())`, function (error, results, fields) {
@@ -103,7 +143,7 @@ exports.login = (req, res) => {
 
         if(results.length == 0){
 
-            let json = jsonData(false,null,"当前用户不存在");
+            let json = jsonData(false,null,ErrorType.AccountNoExist.msg,ErrorType.AccountNoExist.code);
             res.json(json);
 
         }else{
@@ -115,7 +155,7 @@ exports.login = (req, res) => {
                 if (error2) throw error2;
 
                 if(results2.length == 0){
-                    let json = jsonData(false,null,"密码错误");
+                    let json = jsonData(false,null,ErrorType.PasswordError.msg,ErrorType.PasswordError.code);
                     res.json(json);
                 }else{
 
@@ -147,14 +187,6 @@ exports.login = (req, res) => {
 
 };
 
-/***
- * 注册
- * @param req
- * @param res
- */
-exports.register = (req, res) => {
-
-};
 
 
 /***
@@ -211,6 +243,33 @@ exports.topicDetail = (req, res) => {
 
 };
 
+/***
+ * 发表吐槽
+ * @param req
+ * @param res
+ */
+exports.topicSendComment = (req, res) => {
+
+    console.log("请求参数 == ",req.body);
+
+    let topicId = req.body.topicId;
+    let content = req.body.content;
+
+    if(checkToken(req,res)){ //先检查token
+
+        let userId = getUserInfo(req).id; //拿到用户Id
+        db.query(`insert into comment (content, createTime, topicId, userId) values ('${content}', now(), ${topicId}, ${userId}) `,function (error, results, fields) {
+
+            if (error) throw error;
+            console.log("results == ",results);
+
+            let json = jsonData(true,{});
+            res.json(json);
+
+        })
+    }
+
+};
 
 /***
  * 查询评论列表
@@ -252,11 +311,12 @@ exports.commentList = (req, res) => {
  */
 exports.userDetail = (req, res) => {
 
-    console.log("请求参数 == ",req.query);
+    console.log("请求参数 == ",req.body);
 
     let phone = req.body.phone;
 
     if(checkToken(req,res)){ //先检查token
+
         db.query(`select phone,createTime,abstract from user where phone = ${phone}`,function (error, results, fields) {
 
             if (error) throw error;

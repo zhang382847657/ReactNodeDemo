@@ -91,7 +91,7 @@ export default class Topic extends Component {
      */
     _tucaoClick(){
         console.log("跳转到吐槽页");
-        history.push('/topic/reply');
+        history.push(`/topic/reply/${this.props.match.params.id}`);
     }
 
     /***
