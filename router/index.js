@@ -97,6 +97,7 @@ function getUserInfo(req) {
  * */
 exports.register = (req, res) => {
     let phone = req.query.phone;
+    console.log("phone==>",phone)
     let password = req.query.password;
     db.query(`select count(1) from user where phone = ${phone}`, function (error, results, fields) {
         if (error) throw error;
@@ -104,7 +105,7 @@ exports.register = (req, res) => {
             let json = jsonData(false, null, ErrorType.AccountExist.msg, ErrorType.AccountExist.code);
             res.json(json);
         } else {
-            db.query(`insert into user (phone,password)values(${phone},${password})`, function (error, results, fields) {
+            db.query(`insert into user (phone,password,createTime) values (${phone},${password},now())`, function (error, results, fields) {
                 if (error) throw error;
                 let data = {
                     phone:phone
