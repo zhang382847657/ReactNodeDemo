@@ -9,7 +9,7 @@ import Header from '../component/header';
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory();
 import CommonInfo from '../../util/CommonInfo';
-import Request from '../../util/request';
+import webapi from './webapi';
 
 
 const data = [
@@ -64,15 +64,11 @@ export default class My extends Component {
 
         if(CommonInfo.checkLogin()){
 
-            Request("/user/detail",{phone:this.state.user.phone},'POST',true).then((response)=>{
-
+            webapi.userDetail(this.state.user.phone).then((response)=>{
                 console.log("请求结果 == ",response);
                 that.setState({
                     user:response
                 })
-
-            },(error)=>{
-
             });
 
         }

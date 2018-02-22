@@ -48,6 +48,16 @@ function checkToken(req, res) {
     }
 }
 
+/***
+ * 通过解析token，拿到用户信息
+ * @param req
+ * @return 用户信息  id、手机号、密码、等等
+ */
+function getUserInfo(req) {
+    let tokenString = req.get("Authorization"); //拿到token
+    var resDecode = token.decodeToken(tokenString); //拿到payload对象
+    return resDecode.payload.data;
+}
 
 
 /***
@@ -178,6 +188,33 @@ exports.topicDetail = (req, res) => {
 
 };
 
+/***
+ * 发表吐槽
+ * @param req
+ * @param res
+ */
+exports.topicSendComment = (req, res) => {
+
+    console.log("请求参数 == ",req.body);
+
+    let topicId = req.body.topicId;
+    let content = req.body.content;
+
+    if(checkToken(req,res)){ //先检查token
+
+        let userId = getUserInfo(req).id; //拿到用户Id
+        db.query(`insert into comment (content, createTime, topicId, userId) values ('${content}', now(), ${topicId}, ${userId}) `,function (error, results, fields) {
+
+            if (error) throw error;
+            console.log("results == ",results);
+
+            let json = jsonData(true,{});
+            res.json(json);
+
+        })
+    }
+
+};
 
 /***
  * 查询评论列表
@@ -219,11 +256,12 @@ exports.commentList = (req, res) => {
  */
 exports.userDetail = (req, res) => {
 
-    console.log("请求参数 == ",req.query);
+    console.log("请求参数 == ",req.body);
 
     let phone = req.body.phone;
 
     if(checkToken(req,res)){ //先检查token
+
         db.query(`select phone,createTime,abstract from user where phone = ${phone}`,function (error, results, fields) {
 
             if (error) throw error;

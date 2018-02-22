@@ -3,8 +3,11 @@
  */
 import React, {Component} from "react";
 import "./index.less";
-import {Icon, List, NavBar,TextareaItem} from "antd-mobile";
+import {Icon, List, NavBar,TextareaItem, Flex} from "antd-mobile";
 import Header from "../component/header";
+import webapi from './webapi';
+import createHashHistory from 'history/createHashHistory';
+const history = createHashHistory();
 
 
 
@@ -12,7 +15,12 @@ import Header from "../component/header";
 export default class Reply extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            content:null
+        };
+
+        this._onSend = this._onSend.bind(this);
+
     }
 
     componentDidMount() {
@@ -20,17 +28,30 @@ export default class Reply extends Component {
 
     }
 
+    /***
+     * 发表吐槽
+     * @private
+     */
+    _onSend(){
+        webapi.sendComment(this.props.match.params.id,this.state.content).then((response)=>{
+            console.log("发表吐槽结果 == ",response);
+            history.goBack();
+        })
+    }
+
+
     render() {
 
         return (
             <div className="reply">
-                <Header navBarText="吐槽" navBarRight={"评论"}/>
+                <Header navBarText="吐槽" navBarRight={<div onClick={this._onSend}>发表</div>}/>
 
                 <div className="content">
-                    <TextareaItem
-                        rows={7}
-                        placeholder="用力去吐槽吧"
-                    />
+                    <TextareaItem value={this.state.content}
+                                  rows={7}
+                                  count={200}
+                                  placeholder="用力去吐槽吧"
+                                  onChange={(v)=>{this.setState({content:v})}}/>
                 </div>
 
                 <div className="img-d">
