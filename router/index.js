@@ -3,6 +3,7 @@
  */
 var db = require("../database/index.js");
 var token = require("../database/token.js");
+var moment = require("moment");
 
 /***
  * 返回最终的JSON结构体
@@ -19,6 +20,7 @@ function jsonData(result,data,msg) {
 
     if(result == true){
         json["data"] = data
+        json["msg"] = msg
     }else{
         json["msg"] = msg
     }
@@ -27,6 +29,36 @@ function jsonData(result,data,msg) {
 
 }
 
+
+/**
+ * 注册
+ * */
+exports.register = (req, res) => {
+    let phone = req.query.phone;
+    let password = req.query.password;
+    let createTime = moment(new Date()).format('YYYY-MM-DD hh:mm:ss');
+    console.log("createTime==》",createTime)
+    db.query(`select count(1) from user where phone = ${phone}`, function (error, results, fields) {
+        if (error) throw error;
+        if (results[0]["count(1)"] > 0) {
+            let json = jsonData(false, null, "账号已经存在");
+            res.json(json);
+        } else {
+            db.query(`insert into user (phone,password)values(${phone},${password})`, function (error, results, fields) {
+                if (error) throw error;
+                let data = {
+                    phone:phone
+                }
+                let json = jsonData(true,data);
+                console.log("json==>",json)
+                res.json(json);
+            })
+        }
+
+    })
+
+
+}
 
 
 /***

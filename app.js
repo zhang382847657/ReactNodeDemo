@@ -17,6 +17,8 @@ app.get('/topic/queryList', router.topicList);
 app.get('/topic/detail', router.topicDetail);
 /** 查询评论列表 */
 app.get('/comment/queryList', router.commentList);
+/** 注册 */
+app.get('/register', router.register);
 
 app.listen(3000, () => {
     console.log('node服务器监听3000端口成功');
