@@ -99,7 +99,6 @@ export default class MyListView extends Component {
         finalParam["pageSize"] = this.props.pageSize;
         finalParam["pageNum"] = pageNum;
 
-        //TODO: 目前只是用计时器来模拟请求数据，以后改成fetch请求
 
         Request(that.props.url,finalParam,that.props.method,that.props.needToken).then((response)=>{
 
@@ -129,28 +128,6 @@ export default class MyListView extends Component {
                 hasMore:false
             });
         });
-
-        // setTimeout(() => {
-        //
-        //
-        //     if(loadType == "refresh"){ //如果是下拉刷新
-        //         that.dataList = that.props.dataSource;
-        //         that.setState({
-        //             dataList:that.state.dataList.cloneWithRows(that.dataList),
-        //             refreshing: false,
-        //             isLoading: false,
-        //             hasMore:(pageNum+1)*that.props.pageSize < 40 ? true : false
-        //         })
-        //     }else { //如果是上拉刷新
-        //         that.dataList = that.dataList.concat(that.props.dataSource);
-        //         that.setState({
-        //             dataList:that.state.dataList.cloneWithRows(that.dataList),
-        //             isLoading: false,
-        //             hasMore:(pageNum+1)*that.props.pageSize < 40 ? true : false
-        //         })
-        //     }
-        //
-        // }, 600);
 
     }
 
@@ -199,7 +176,7 @@ MyListView.propTypes = {
     param:PropTypes.object, //请求的参数
     method:PropTypes.string.isRequired, //请求方式 POST|GET
     pageSize:PropTypes.number.isRequired, //一页请求多少条数据
-    needToken:PropTypes.boolean, //是否需要token
+    needToken:PropTypes.bool, //是否需要token
     emptyComponent:PropTypes.any //绘制为空时的组件
 
 };

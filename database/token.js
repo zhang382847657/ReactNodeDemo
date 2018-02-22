@@ -69,4 +69,4 @@ var token={
     }
 
 }
-module.exports=token;
+module.exports = token;

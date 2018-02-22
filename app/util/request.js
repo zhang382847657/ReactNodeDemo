@@ -44,7 +44,8 @@ export default function Request(url, data, method,needToken) { //未传没有，
             'Content-Type': 'application/json;charset=utf-8',
         },
         body:JSON.stringify(data)
-    }
+    };
+
 
     if(needToken){
         init = {
@@ -58,6 +59,7 @@ export default function Request(url, data, method,needToken) { //未传没有，
             body:JSON.stringify(data)
         }
     }
+
 
     if(method != 'POST'){
         delete  init.body;
