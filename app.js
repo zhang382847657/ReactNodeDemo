@@ -18,8 +18,12 @@ app.get('/login', router.login);
 app.get('/topic/queryList', router.topicList);
 /** 查询话题详情 */
 app.get('/topic/detail', router.topicDetail);
-/** 添加吐槽 */
+/** 发表吐槽 */
 app.post('/topic/sendComment', router.topicSendComment);
+/** 点赞 */
+app.post('/topic/like', router.topicLike);
+/** 用户是否对当前话题点过赞 */
+app.post('/topic/isUserLike', router.topicIsUserLike);
 /** 查询评论列表 */
 app.get('/comment/queryList', router.commentList);
 /** 注册 */

@@ -146,7 +146,7 @@ export default class Register extends Component {
                 password: "",
                 confirmPassword: "",
                 agreeRegister: false
-            })
+            });
             setTimeout(()=>{
                 this.props.history.push("login")
             },1000)
