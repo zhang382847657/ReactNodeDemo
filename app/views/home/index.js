@@ -102,6 +102,13 @@ export default class Home extends Component {
                                     return(
                                         <WhiteSpace className="list-item-separator"/>
                                     )
+                                }}
+                                emptyComponent = {()=>{
+                                    return(
+                                        <div>
+                                            暂无数据
+                                        </div>
+                                    )
                                 }}/>
                 </div>
 
