@@ -9,6 +9,7 @@ import Header from '../component/header';
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory();
 import CommonInfo from '../../util/CommonInfo';
+import Request from '../../util/request';
 
 
 const data = [
@@ -33,22 +34,48 @@ export default class My extends Component {
     constructor(props) {
         super(props);
 
-        this.state={
-
+        this.state= {
+            user: CommonInfo.getLoginInfo()
         };
 
         this._renderItem = this._renderItem.bind(this);
         this._loginClick = this._loginClick.bind(this);
         this._renderHeader = this._renderHeader.bind(this);
         this._gridItemClick = this._gridItemClick.bind(this);
+        this._getUserInfo = this._getUserInfo.bind(this);
 
 
     }
 
     componentDidMount() {
 
+       this._getUserInfo();
+
+    }
+
+    /***
+     * 查询用户信息
+     * @private
+     */
+    _getUserInfo(){
 
 
+        let that = this;
+
+        if(CommonInfo.checkLogin()){
+
+            Request("/user/detail",{phone:this.state.user.phone},'POST',true).then((response)=>{
+
+                console.log("请求结果 == ",response);
+                that.setState({
+                    user:response
+                })
+
+            },(error)=>{
+
+            });
+
+        }
     }
 
     /***
@@ -102,8 +129,8 @@ export default class My extends Component {
                 <div className="rn-my-header">
                     <img src="http://5b0988e595225.cdn.sohucs.com/images/20180210/3aaa81b9226e4788b240225d4684ad0c.jpeg"/>
                     <Flex direction="column" align="start">
-                        <span className="phone">15037104407</span>
-                        <span className="abstract">其实我挺羡慕恩尚，阿叹是她白马王子，崔英道是她黑骑士，灿荣是她蓝颜！</span>
+                        <span className="phone">{this.state.user.phone}</span>
+                        <span className="abstract">{this.state.user.abstract}</span>
                     </Flex>
                 </div>
             )

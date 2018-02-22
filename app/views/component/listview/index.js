@@ -99,7 +99,6 @@ export default class MyListView extends Component {
         finalParam["pageSize"] = this.props.pageSize;
         finalParam["pageNum"] = pageNum;
 
-        //TODO: 目前只是用计时器来模拟请求数据，以后改成fetch请求
 
         Request(that.props.url,finalParam,that.props.method,that.props.needToken).then((response)=>{
 

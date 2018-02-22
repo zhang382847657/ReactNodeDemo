@@ -1,6 +1,9 @@
 /**
+ *
  * Created by zhanglin on 2018/2/12.
  */
+
+
 var db = require("../database/index.js");
 var token = require("../database/token.js");
 
@@ -25,6 +28,24 @@ function jsonData(result,data,msg) {
 
     return json;
 
+}
+
+/***
+ * 检查Token
+ * @param req
+ * @param res
+ * @return bool 是否成功
+ */
+function checkToken(req, res) {
+    let tokenString = req.get("Authorization"); //拿到token
+
+    if(token.checkToken(tokenString)) { //校验token是否过期
+        let json = jsonData(false,null,"登录过期");
+        res.json(json);
+        return false;
+    }else{
+        return true;
+    }
 }
 
 
@@ -91,17 +112,16 @@ exports.login = (req, res) => {
     })
 
 
-}
+};
 
 /***
  * 注册
  * @param req
  * @param res
  */
-exports
-function register(req, res) {
+exports.register = (req, res) => {
 
-}
+};
 
 
 /***
@@ -133,7 +153,7 @@ exports.topicList = (req, res) => {
 
     })
 
-}
+};
 
 /***
  * 查询话题详情
@@ -156,7 +176,7 @@ exports.topicDetail = (req, res) => {
     })
 
 
-}
+};
 
 
 /***
@@ -189,6 +209,32 @@ exports.commentList = (req, res) => {
     })
 
 
-}
+};
+
+
+/***
+ * 查询用户信息
+ * @param req
+ * @param res
+ */
+exports.userDetail = (req, res) => {
+
+    console.log("请求参数 == ",req.query);
+
+    let phone = req.body.phone;
+
+    if(checkToken(req,res)){ //先检查token
+        db.query(`select phone,createTime,abstract from user where phone = ${phone}`,function (error, results, fields) {
+
+            if (error) throw error;
+            console.log("results == ",results);
+
+            let json = jsonData(true,results[0]);
+            res.json(json);
+
+        })
+    }
+
+};
 
 
