@@ -56,6 +56,7 @@ function checkToken(req, res) {
  * */
 exports.register = (req, res) => {
     let phone = req.query.phone;
+    console.log("phone==>",phone)
     let password = req.query.password;
     let createTime = moment(new Date()).format('YYYY-MM-DD hh:mm:ss');
     console.log("createTime==》",createTime)
@@ -65,7 +66,7 @@ exports.register = (req, res) => {
             let json = jsonData(false, null, "账号已经存在");
             res.json(json);
         } else {
-            db.query(`insert into user (phone,password)values(${phone},${password})`, function (error, results, fields) {
+            db.query(`insert into user (phone,password,createTime) values (${phone},${password},now())`, function (error, results, fields) {
                 if (error) throw error;
                 let data = {
                     phone:phone
