@@ -22,6 +22,8 @@ app.get('/topic/detail', router.topicDetail);
 app.post('/topic/sendComment', router.topicSendComment);
 /** 查询评论列表 */
 app.get('/comment/queryList', router.commentList);
+/** 注册 */
+app.get('/register', router.register);
 /** 查询用户信息 */
 app.post('/user/detail', router.userDetail);
 
