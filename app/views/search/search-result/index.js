@@ -7,6 +7,7 @@ import React, {Component} from "react";
 import {WhiteSpace} from "antd-mobile";
 import Header from "../../component/header";
 import MyListView from '../../component/listview';
+import Empty from '../../component/empty';
 import "./index.less";
 
 
@@ -84,9 +85,7 @@ export default class SearchResult extends Component {
                                 }}
                                 emptyComponent = {()=>{
                                     return(
-                                        <div>
-                                            暂无数据
-                                        </div>
+                                        <Empty/>
                                     )
                                 }}/>
                 </div>

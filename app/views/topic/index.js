@@ -155,7 +155,7 @@ export default class Topic extends Component {
 
                 <Flex className="rn-topic-bottom">
                     <Flex.Item className="bottom-item-comment">
-                        <Button icon={<i className="fa fa-hand-lizard-o tab-bar-item-icon"/>}
+                        <Button icon={<i className="iconfont">&#xe61d;</i>}
                                 onClick={this._tucaoClick}>吐槽</Button>
                     </Flex.Item>
                     <Flex.Item className="bottom-item-zan">
