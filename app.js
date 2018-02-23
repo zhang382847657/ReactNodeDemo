@@ -34,6 +34,8 @@ app.get('/register', router.register);
 app.get('/posttheme', router.posttheme);
 /** 查询用户信息 */
 app.post('/user/detail', router.userDetail);
+/** 查询搜索结果集 */
+app.post('/searchResult', router.searchResult);
 
 app.listen(3000, () => {
     console.log('node服务器监听3000端口成功');

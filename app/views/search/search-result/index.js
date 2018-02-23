@@ -5,10 +5,11 @@
 
 import React, {Component} from "react";
 import "./index.less";
-import {Flex,NavBar,InputItem,Icon} from "antd-mobile";
+import {Flex} from "antd-mobile";
 import createHashHistory from "history/createHashHistory";
-const history = createHashHistory();
 import Header from "../../component/header";
+import webApi from "./webapi";
+const history = createHashHistory();
 
 const dataList = [
     {
@@ -75,11 +76,21 @@ const dataList = [
 export default class SearchResult extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            searchResult: []
+        }
         this._gotoTopicDetail = this._gotoTopicDetail.bind(this)
+
+
     }
 
     componentDidMount() {
+        webApi.searchResult(this.props.match.params.topic).then((response) => {
+            this.setState({
+                searchResult: response
+            })
+        })
+
 
 
     }
@@ -94,21 +105,17 @@ export default class SearchResult extends Component {
         history.push("/topic");
     }
 
-
-
     renderList() {
         let renderList = [];
-        dataList.map((value, index) => {
+        this.state.searchResult.map((value, index) => {
             index++
             renderList.push(
                 <Flex align="start" className="list" key={index} onClick={this._gotoTopicDetail}>
                     <Flex.Item className="item-title">
                         <div className="item-title-subset">{value.title}</div>
-                        <p>这里显示正文的名称啦啦啦啦啦啦啦啦</p>
+                        <p>{value.content}</p>
                         <p>565赞同 * 117评论</p>
                     </Flex.Item>
-
-
                     {/*<Flex.Item className="item-img">*/}
                         {/*<img src={value.img}/>*/}
                     {/*</Flex.Item>*/}

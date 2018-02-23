@@ -121,6 +121,8 @@ exports.register = (req, res) => {
 }
 
 
+/**
+ * 发布主题*/
 exports.posttheme = (req, res) => {
     let title = req.query.title;
     let content = req.query.content;
@@ -133,6 +135,22 @@ exports.posttheme = (req, res) => {
 
 }
 
+
+/**
+ * 搜索结果集*/
+exports.searchResult = (req, res)=>{
+    let topic = req.body.topic;
+    db.query(`select * from topic where title like "%${topic}%"`,function(error, results, fields){
+        if(error) throw  error;
+
+        console.log("results===>",results)
+        let json = jsonData(true,results);
+        res.json(json);
+
+    })
+
+
+}
 
 /***
  * 登录

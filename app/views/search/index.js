@@ -3,8 +3,8 @@
  */
 import React, {Component} from "react";
 import "./index.less";
-import {Icon, InputItem, List, NavBar} from "antd-mobile";
-import Header from './header/index';
+import {Icon, List} from "antd-mobile";
+import Header from "./header/index";
 
 
 const Item = List.Item;
@@ -12,8 +12,15 @@ const Item = List.Item;
 export default class Search extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            body: ""
+        }
+        this.search = this.search.bind(this);
+        this.changeBody = this.changeBody.bind(this)
+
+
     }
+
 
     componentDidMount() {
 
@@ -25,7 +32,7 @@ export default class Search extends Component {
         return (
             <div className="overall">
 
-                <Header/>
+                <Header navBarRight={<div onClick={this.search}>搜索</div>} changeBody={this.changeBody}/>
 
 
                 <div className="hot-search">
@@ -60,12 +67,19 @@ export default class Search extends Component {
                         </List.Item>
                     </List>
                 </div>
-
             </div>
-
         )
+    }
 
+    search() {
+        this.props.history.push(`/searchResult/${this.state.body}`)
 
+    }
+
+    changeBody(e) {
+        this.setState({
+            body: e
+        })
     }
 
 }
