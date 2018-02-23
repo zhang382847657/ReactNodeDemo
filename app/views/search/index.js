@@ -12,6 +12,7 @@ export default class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            searchHistoryArray: JSON.parse(CommonInfo.localStorage.getItem(Constant.SEARCHHISTORY)) //搜索记录
         };
 
         this._renderSearchHistory = this._renderSearchHistory.bind(this);
@@ -32,12 +33,14 @@ export default class Search extends Component {
      */
     _deleteHistorySearch(index){
 
-        console.log("key == ",index);
-        let searchHistoryArray = JSON.parse(CommonInfo.localStorage.getItem(Constant.SEARCHHISTORY));
-        if(searchHistoryArray){
-            searchHistoryArray.splice(index,1);
+        let tmp = this.state.searchHistoryArray;
+        if(tmp){
+            tmp.splice(index,1);
+            CommonInfo.localStorage.setItem(Constant.SEARCHHISTORY,JSON.stringify(tmp));
+            this.setState({
+                searchHistoryArray:tmp
+            });
         }
-
 
     }
 
@@ -49,10 +52,8 @@ export default class Search extends Component {
      */
     _renderSearchHistory(){
         let that = this;
-        let searchHistoryArray = JSON.parse(CommonInfo.localStorage.getItem(Constant.SEARCHHISTORY));
 
-        console.log("searchArray == ",searchHistoryArray);
-        let views = searchHistoryArray && searchHistoryArray.map(function (value,key) {
+        let views = this.state.searchHistoryArray && this.state.searchHistoryArray.map(function (value,key) {
             return(
                 <List.Item>
                     <i className="fa fa-calendar-o"/>
@@ -62,7 +63,7 @@ export default class Search extends Component {
             )
         })
 
-        if(searchHistoryArray){
+        if(this.state.searchHistoryArray && this.state.searchHistoryArray.length > 0){
             return views;
         }else{
             return(
