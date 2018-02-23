@@ -4,7 +4,7 @@
 
 
 import React, {Component} from "react";
-import {WhiteSpace} from "antd-mobile";
+import {WhiteSpace,Flex} from "antd-mobile";
 import Header from "../../component/header";
 import MyListView from '../../component/listview';
 import Empty from '../../component/empty';
@@ -15,7 +15,6 @@ export default class SearchResult extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchResult: []
         };
 
         this._gotoTopicDetail = this._gotoTopicDetail.bind(this);
@@ -24,13 +23,6 @@ export default class SearchResult extends Component {
     }
 
     componentDidMount() {
-        webApi.searchResult(this.props.match.params.topic).then((response) => {
-            this.setState({
-                searchResult: response
-            })
-        })
-
-
     }
 
 
@@ -82,7 +74,7 @@ export default class SearchResult extends Component {
                     <MyListView url="/topic/search"
                                 method="GET"
                                 pageSize={10}
-                                param={{search:this.props.location.state.search}}
+                                param={{topic:this.props.location.state.search}}
                                 needToken={false}
                                 renderRow={this._renderItem}
                                 renderSeparator = {()=>{

@@ -27,7 +27,7 @@ ReactDOM.render(
             <Route path="/search" component={Search}/>
             <Route path="/posttheme" component={PostTheme}/>
             <Route path="/participate" component={Participate}/>
-            <Route path="/searchResult/:topic" component={SearchResult}/>
+            <Route path="/searchResult" component={SearchResult}/>
             <Switch>
                 <Route exact path="/topic/reply/:id" component={Reply}/>
                 <Route exact path="/topic/:id" component={Topic}/>

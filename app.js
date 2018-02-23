@@ -26,6 +26,8 @@ app.post('/topic/like', router.topicLike);
 app.post('/topic/isUserLike', router.topicIsUserLike);
 /** 我吐槽过的话题 */
 app.post('/topic/participate', router.topicParticipate);
+/** 话题查询 */
+app.get('/topic/search', router.topicSearch);
 /** 查询评论列表 */
 app.get('/comment/queryList', router.commentList);
 /** 注册 */
@@ -34,8 +36,7 @@ app.get('/register', router.register);
 app.get('/posttheme', router.posttheme);
 /** 查询用户信息 */
 app.post('/user/detail', router.userDetail);
-/** 查询搜索结果集 */
-app.post('/searchResult', router.searchResult);
+
 
 app.listen(3000, () => {
     console.log('node服务器监听3000端口成功');

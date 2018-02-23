@@ -136,21 +136,6 @@ exports.posttheme = (req, res) => {
 }
 
 
-/**
- * 搜索结果集*/
-exports.searchResult = (req, res)=>{
-    let topic = req.body.topic;
-    db.query(`select * from topic where title like "%${topic}%"`,function(error, results, fields){
-        if(error) throw  error;
-
-        console.log("results===>",results)
-        let json = jsonData(true,results);
-        res.json(json);
-
-    })
-
-
-}
 
 /***
  * 登录
@@ -248,6 +233,36 @@ exports.topicList = (req, res) => {
     })
 
 };
+
+/**
+ * 话题搜索 */
+exports.topicSearch = (req, res)=>{
+
+    let topic = req.query.topic;
+    let pageSize = req.query.pageSize;
+    let pageNum = req.query.pageNum;
+
+    db.query(`select * from topic where title like "%${topic}%" limit ${pageNum*pageSize},${(pageNum+1)*pageSize}`,function(error, results, fields){
+
+        if(error) throw  error;
+        console.log("results===>",results)
+
+
+        db.query(`select count(*) from topic  where title like "%${topic}%"`,function (error2, results2, fields2) {
+
+            let fianlData = {
+                dataList:results,
+                totalCount:results2[0]["count(*)"]
+            };
+            let json = jsonData(true,fianlData);
+            res.json(json);
+
+        });
+
+    })
+
+
+}
 
 /***
  * 查询话题详情
