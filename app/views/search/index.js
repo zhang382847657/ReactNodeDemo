@@ -17,6 +17,7 @@ export default class Search extends Component {
 
         this._renderSearchHistory = this._renderSearchHistory.bind(this);
         this._deleteHistorySearch = this._deleteHistorySearch.bind(this);
+        this._searchHistoryClick = this._searchHistoryClick.bind(this);
     }
 
 
@@ -28,10 +29,13 @@ export default class Search extends Component {
 
     /**
      * 删除当前的搜索记录
+     * @param event 事件对象
      * @param index 被删除数据的下表
      * @private
      */
-    _deleteHistorySearch(index){
+    _deleteHistorySearch(event,index){
+
+        event.stopPropagation(); //阻止点击冒泡
 
         let tmp = this.state.searchHistoryArray;
         if(tmp){
@@ -42,6 +46,20 @@ export default class Search extends Component {
             });
         }
 
+    }
+
+    /**
+     * 搜索历史点击
+     * @param value 搜索历史内容
+     * @private
+     */
+    _searchHistoryClick(value){
+        var data = {search:value};
+        var path = {
+            pathname:'/searchResult',
+            state:data,
+        };
+        this.props.history.push(path);
     }
 
 
@@ -55,10 +73,10 @@ export default class Search extends Component {
 
         let views = this.state.searchHistoryArray && this.state.searchHistoryArray.map(function (value,key) {
             return(
-                <List.Item>
+                <List.Item onClick={()=>{that._searchHistoryClick(value)}}>
                     <i className="fa fa-calendar-o"/>
                     {value}
-                    <Icon type="cross" className="close" size="xs" onClick={()=>{that._deleteHistorySearch(key)}}/>
+                    <Icon type="cross" className="close" size="xs" onClick={(e)=>{that._deleteHistorySearch(e,key)}}/>
                 </List.Item>
             )
         })
@@ -86,12 +104,12 @@ export default class Search extends Component {
                 <div className="hot-search">
                     <h1>吐槽热搜</h1>
                     <div className="hot-search-list">
-                        <span><i className="fa fa-free-code-camp hot-search-icon"/>土木三八班偶同学1</span>
-                        <span><i className="fa fa-free-code-camp hot-search-icon"/>跳一跳攻略</span>
-                        <span><i className="fa fa-free-code-camp hot-search-icon"/>美国禁止华为</span>
-                        <span ><i className="fa fa-free-code-camp hot-search-icon"/>前任攻略3</span>
-                        <span><i className="fa fa-free-code-camp hot-search-icon"/>哈哈哈哈哈哈哈哈</span>
-                        <span><i className="fa fa-free-code-camp hot-search-icon"/>标题啦标题啦</span>
+                        <span><i className="fa fa-free-code-camp hot-search-icon"/>孙燕姿道歉</span>
+                        <span><i className="fa fa-free-code-camp hot-search-icon"/>佟丽娅体重</span>
+                        <span><i className="fa fa-free-code-camp hot-search-icon"/>董子健孙怡</span>
+                        <span ><i className="fa fa-free-code-camp hot-search-icon"/>8款超好看的信用卡</span>
+                        <span><i className="fa fa-free-code-camp hot-search-icon"/>小城市的富贵病</span>
+                        <span><i className="fa fa-free-code-camp hot-search-icon"/>大连万达</span>
                     </div>
                 </div>
 
