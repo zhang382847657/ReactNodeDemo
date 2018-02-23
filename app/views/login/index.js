@@ -49,6 +49,7 @@ export default class Login extends Component {
 
             //保存用户信息
             CommonInfo.saveLoginInfo(response);
+            this.props.history.push("/")
 
         })
     }
