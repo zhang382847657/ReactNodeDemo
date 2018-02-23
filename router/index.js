@@ -105,13 +105,12 @@ exports.register = (req, res) => {
             let json = jsonData(false, null, ErrorType.AccountExist.msg, ErrorType.AccountExist.code);
             res.json(json);
         } else {
-            db.query(`insert into user (phone,password,createTime) values (${phone},${password},now())`, function (error, results, fields) {
+            db.query(`insert into user (phone,password,createTime) values ("${phone}","${password}",now())`, function (error, results, fields) {
                 if (error) throw error;
                 let data = {
                     phone:phone
                 }
                 let json = jsonData(true,data);
-                console.log("json==>",json)
                 res.json(json);
             })
         }
@@ -125,7 +124,7 @@ exports.register = (req, res) => {
 exports.posttheme = (req, res) => {
     let title = req.query.title;
     let content = req.query.content;
-    db.query(`insert into topic (title,content,createTime) values (${title},${content},now())`,function(error, results, fields){
+    db.query(`insert into topic (title,content,createTime) values ("${title}","${content}",now())`,function(error, results, fields){
         if(error) throw  error;
         let json = jsonData(true,results);
         res.json(json);
