@@ -3,7 +3,7 @@
  */
 import React, {Component} from "react";
 import "./index.less";
-import {Icon, List, NavBar,TextareaItem, Flex} from "antd-mobile";
+import {Icon, List, NavBar,TextareaItem, Flex, Toast} from "antd-mobile";
 import Header from "../component/header";
 import webapi from './webapi';
 import createHashHistory from 'history/createHashHistory';
@@ -33,6 +33,12 @@ export default class Reply extends Component {
      * @private
      */
     _onSend(){
+
+        if(this.state.content == null || this.state.content == ""){
+            Toast.info('请输入吐槽内容！', 1);
+            return;
+        }
+
         webapi.sendComment(this.props.match.params.id,this.state.content).then((response)=>{
             console.log("发表吐槽结果 == ",response);
             history.goBack();
@@ -44,7 +50,7 @@ export default class Reply extends Component {
 
         return (
             <div className="reply">
-                <Header navBarText="吐槽" navBarRight={<div onClick={this._onSend}>发表</div>}/>
+                <Header navBarText="吐槽" navBarRight={<i className="iconfont" onClick={this._onSend}>&#xe62f;</i>}/>
 
                 <div className="content">
                     <TextareaItem value={this.state.content}

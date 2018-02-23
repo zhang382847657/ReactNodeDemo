@@ -19,6 +19,8 @@ export default class Search extends Component {
         this.changeBody = this.changeBody.bind(this)
 
 
+
+        this._deleteHistorySearch = this._deleteHistorySearch.bind(this);
     }
 
 
@@ -28,22 +30,31 @@ export default class Search extends Component {
     }
 
 
+    /**
+     * 删除当前的搜索记录
+     * @private
+     */
+    _deleteHistorySearch(){
+
+    }
+
+
     render() {
         return (
             <div className="overall">
 
-                <Header navBarRight={<div onClick={this.search}>搜索</div>} changeBody={this.changeBody}/>
+                <Header history={this.props.history} navBarRight={<div onClick={this.search}>搜索</div>} changeBody={this.changeBody}/>
 
 
                 <div className="hot-search">
                     <h1>吐槽热搜</h1>
                     <div className="hot-search-list">
-                        <span><i className="fa fa-free-code-camp hot-search-icon"></i>土木三八班偶同学1</span>
-                        <span>跳一跳攻略</span>
-                        <span>美国禁止华为</span>
-                        <span ><i className="fa fa-heartbeat hot-search-icon"></i>前任攻略3</span>
-                        <span>哈哈哈哈哈哈哈哈</span>
-                        <span>标题啦标题啦</span>
+                        <span><i className="fa fa-free-code-camp hot-search-icon"/>土木三八班偶同学1</span>
+                        <span><i className="fa fa-free-code-camp hot-search-icon"/>跳一跳攻略</span>
+                        <span><i className="fa fa-free-code-camp hot-search-icon"/>美国禁止华为</span>
+                        <span ><i className="fa fa-free-code-camp hot-search-icon"/>前任攻略3</span>
+                        <span><i className="fa fa-free-code-camp hot-search-icon"/>哈哈哈哈哈哈哈哈</span>
+                        <span><i className="fa fa-free-code-camp hot-search-icon"/>标题啦标题啦</span>
                     </div>
                 </div>
 
@@ -53,7 +64,7 @@ export default class Search extends Component {
                         <List.Item>
                             <i className="fa fa-calendar-o"/>
                             生活中有哪些让你让你拍案叫绝的小技巧
-                            <Icon type="cross" className="close" size="xs"/>
+                            <Icon type="cross" className="close" size="xs" onClick={this._deleteHistorySearch}/>
                         </List.Item>
                         <List.Item>
                             <i className="fa fa-calendar-o"/>
