@@ -3,8 +3,9 @@
  */
 
 import React, { Component} from 'react';
-import {NavBar,InputItem,List,Icon} from 'antd-mobile';
-
+import {NavBar,InputItem,List,Icon, Toast} from 'antd-mobile';
+import CommonInfo from '../../../util/CommonInfo';
+import Constant from '../../../util/Constant';
 import './index.less';
 
 export default class Header extends Component{
@@ -34,6 +35,21 @@ export default class Header extends Component{
      * @private
      */
     _searchClick(){
+
+        if(this.state.search.trim() == ""){
+            Toast.info("请输入搜索内容！",1);
+            return;
+        }
+
+        /** 缓存用户的搜索记录 */
+        let searchHistoryArray = JSON.parse(CommonInfo.localStorage.getItem(Constant.SEARCHHISTORY));
+        if(searchHistoryArray){
+            searchHistoryArray.push(this.state.search);
+        }else{
+            searchHistoryArray = [this.state.search];
+        }
+        CommonInfo.localStorage.setItem(Constant.SEARCHHISTORY,JSON.stringify(searchHistoryArray));
+
 
         var data = {search:this.state.search};
         var path = {

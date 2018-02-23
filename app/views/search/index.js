@@ -5,21 +5,16 @@ import React, {Component} from "react";
 import "./index.less";
 import {Icon, List} from "antd-mobile";
 import Header from "./header/index";
-
-
-const Item = List.Item;
+import CommonInfo from '../../util/CommonInfo';
+import Constant from '../../util/Constant';
 
 export default class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            body: ""
-        }
-        this.search = this.search.bind(this);
-        this.changeBody = this.changeBody.bind(this)
+        };
 
-
-
+        this._renderSearchHistory = this._renderSearchHistory.bind(this);
         this._deleteHistorySearch = this._deleteHistorySearch.bind(this);
     }
 
@@ -32,9 +27,50 @@ export default class Search extends Component {
 
     /**
      * 删除当前的搜索记录
+     * @param index 被删除数据的下表
      * @private
      */
-    _deleteHistorySearch(){
+    _deleteHistorySearch(index){
+
+        console.log("key == ",index);
+        let searchHistoryArray = JSON.parse(CommonInfo.localStorage.getItem(Constant.SEARCHHISTORY));
+        if(searchHistoryArray){
+            searchHistoryArray.splice(index,1);
+        }
+
+
+    }
+
+
+    /**
+     * 绘制搜索历史记录
+     * @return {XML}
+     * @private
+     */
+    _renderSearchHistory(){
+        let that = this;
+        let searchHistoryArray = JSON.parse(CommonInfo.localStorage.getItem(Constant.SEARCHHISTORY));
+
+        console.log("searchArray == ",searchHistoryArray);
+        let views = searchHistoryArray && searchHistoryArray.map(function (value,key) {
+            return(
+                <List.Item>
+                    <i className="fa fa-calendar-o"/>
+                    {value}
+                    <Icon type="cross" className="close" size="xs" onClick={()=>{that._deleteHistorySearch(key)}}/>
+                </List.Item>
+            )
+        })
+
+        if(searchHistoryArray){
+            return views;
+        }else{
+            return(
+                <List.Item>
+                    暂无搜索记录
+                </List.Item>
+            )
+        }
 
     }
 
@@ -43,7 +79,7 @@ export default class Search extends Component {
         return (
             <div className="overall">
 
-                <Header history={this.props.history} navBarRight={<div onClick={this.search}>搜索</div>} changeBody={this.changeBody}/>
+                <Header history={this.props.history}/>
 
 
                 <div className="hot-search">
@@ -61,36 +97,11 @@ export default class Search extends Component {
                 <div className="history-search">
                     <h1>搜索历史</h1>
                     <List>
-                        <List.Item>
-                            <i className="fa fa-calendar-o"/>
-                            生活中有哪些让你让你拍案叫绝的小技巧
-                            <Icon type="cross" className="close" size="xs" onClick={this._deleteHistorySearch}/>
-                        </List.Item>
-                        <List.Item>
-                            <i className="fa fa-calendar-o"/>
-                            如何看到金田和张继科的恋爱？
-                            <Icon type="cross" className="close" size="xs"/>
-                        </List.Item>
-                        <List.Item>
-                            <i className="fa fa-calendar-o"/>
-                            二战中细思极恐的细节！！
-                            <Icon type="cross" className="close" size="xs"/>
-                        </List.Item>
+                        {this._renderSearchHistory()}
                     </List>
                 </div>
             </div>
         )
-    }
-
-    search() {
-        this.props.history.push(`/searchResult/${this.state.body}`)
-
-    }
-
-    changeBody(e) {
-        this.setState({
-            body: e
-        })
     }
 
 }
