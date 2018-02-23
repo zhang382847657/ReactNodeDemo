@@ -68,7 +68,7 @@ export default class Home extends Component {
                 <Flex.Item>
                     <Flex direction="column" justify="around" align="start">
                         <span style={{fontSize:"18px"}}>{rowData.title}</span>
-                        <span style={{color:"#999"}}>{`${rowData.commentNum || 0}条吐槽  ${rowData.like}个赞`}</span>
+                        <span style={{color:"#999"}}>{`${rowData.commentNum || 0}条吐槽  ${rowData.likeNum|| 0}个赞`}</span>
                     </Flex>
                 </Flex.Item>
                 {imageUrl?<img className="list-item-img" src={imageUrl}/>:null}
