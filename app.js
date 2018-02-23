@@ -30,6 +30,8 @@ app.post('/topic/participate', router.topicParticipate);
 app.get('/comment/queryList', router.commentList);
 /** 注册 */
 app.get('/register', router.register);
+/** 发布主题 */
+app.get('/posttheme', router.posttheme);
 /** 查询用户信息 */
 app.post('/user/detail', router.userDetail);
 

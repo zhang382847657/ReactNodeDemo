@@ -122,6 +122,19 @@ exports.register = (req, res) => {
 }
 
 
+exports.posttheme = (req, res) => {
+    let title = req.query.title;
+    let content = req.query.content;
+    db.query(`insert into topic (title,content,createTime) values (${title},${content},now())`,function(error, results, fields){
+        if(error) throw  error;
+        let json = jsonData(true,results);
+        res.json(json);
+
+    })
+
+}
+
+
 /***
  * 登录
  * @param req

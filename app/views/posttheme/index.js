@@ -3,8 +3,9 @@
  */
 import React, {Component} from "react";
 import "./index.less";
-import {Icon, InputItem, List, NavBar, TextareaItem} from "antd-mobile";
+import {InputItem, List, TextareaItem,Toast} from "antd-mobile";
 import Header from "../component/header";
+import webApi from "./webapi";
 
 
 const Item = List.Item;
@@ -12,8 +13,14 @@ const Item = List.Item;
 export default class PostTheme extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
-        this.uploadImg = this.uploadImg.bind(this)
+        this.state = {
+            title: "",
+            content: ""
+        }
+        this.uploadImg = this.uploadImg.bind(this);
+        this.postTheme = this.postTheme.bind(this);
+        this.changeTitle = this.changeTitle.bind(this);
+        this.changeBody = this.changeBody.bind(this)
     }
 
     componentDidMount() {
@@ -26,7 +33,7 @@ export default class PostTheme extends Component {
             <div className="posttheme">
 
                 <div >
-                    <Header navBarText="发布主题" navBarRight="发布"/>
+                    <Header navBarText="发布主题" navBarRight={<div onClick={this.postTheme}>发布</div>}/>
                 </div>
 
              <div className="padding-div">
@@ -34,6 +41,7 @@ export default class PostTheme extends Component {
                      <h3>标题</h3>
                      <InputItem maxLength={40}
                                 placeholder="请输入标题"
+                                onChange={this.changeTitle}
                      ></InputItem>
 
                  </div>
@@ -43,6 +51,7 @@ export default class PostTheme extends Component {
                      <TextareaItem
                          rows={5}
                          placeholder="请输入内容"
+                         onChange={this.changeBody}
                      ></TextareaItem>
 
                  </div>
@@ -71,8 +80,47 @@ export default class PostTheme extends Component {
 
     }
 
+
+    changeTitle(e) {
+        this.setState({
+            title: e
+        })
+    }
+
+    changeBody(e) {
+        console.log(e)
+        this.setState({
+            content: e
+        })
+    }
+
     uploadImg(){
         console.log("这边点击上传图片")
+    }
+
+
+    postTheme() {
+
+        if (this.state.title == "") {
+            Toast.info("请输入标题", 1);
+            return;
+        }
+        if (this.state.content == "") {
+            Toast.info("请输入内容", 1);
+            return;
+        }
+        webApi.posttheme(this.state.title,this.state.content).then(((response) => {
+            Toast.info("发布成功啦", 1);
+            this.setState({
+                title:"",
+                content:""
+            })
+
+            setTimeout(()=>{
+                this.props.history.push("/")
+            },1000)
+
+        }))
     }
 
 }
