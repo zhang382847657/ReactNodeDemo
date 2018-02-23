@@ -21,7 +21,7 @@ const data = [
     },
     {
         icon:"commenting-o",
-        text:"我参与过的话题",
+        text:"我吐槽过的话题",
         url:"/participate"
     },
     {

@@ -96,25 +96,30 @@ export default class Participate extends Component {
      * 跳转到话题详情页
      * @private
      */
-    _gotoTopicDetail(){
-        history.push("/topic");
+    _gotoTopicDetail(id){
+        history.push(`/topic/${id}`);
     }
 
 
     _renderItem(rowData, sectionID, rowID){
 
+        let imageUrl = null;
+        if(rowData.images){
+            imageUrl = rowData.images.split(',')[0];
+        }
+
         return(
-            <Flex align="start" className="list" key={rowID} onClick={this._gotoTopicDetail}>
+            <Flex align="start" className="list" key={rowID} onClick={()=>{this._gotoTopicDetail(rowData.id)}}>
                 <Flex.Item className="item">
                     <span className={parseInt(rowID) % 2 == 1 ? "sequence": "sequence1"}>{parseInt(rowID) > 9 ? parseInt(rowID) + 1 : "0" + parseInt(rowID)}</span>
                 </Flex.Item>
                 <Flex.Item className="item-title">
                     <div className="item-title-subset">{rowData.title}</div>
-                    <p>{rowData.hot}万热度-{rowData.watch}万阅读</p>
+                    <p>{rowData.commentNum || 0}条吐槽 {rowData.likeNum || 0}个赞</p>
                 </Flex.Item>
 
                 <Flex.Item className="item-img">
-                    <img src={rowData.img}/>
+                    <img src={imageUrl}/>
                 </Flex.Item>
             </Flex>
         )
@@ -125,11 +130,12 @@ export default class Participate extends Component {
     render() {
         return (
             <div className="participate">
-                <Header navBarText="我参与过的话题" />
+                <Header navBarText="我吐槽过的话题" />
                 <div className="padding-div">
 
-                    <MyListView url="http://"
-                                method="GET"
+                    <MyListView url="/topic/participate"
+                                method="POST"
+                                needToken={true}
                                 pageSize={10}
                                 dataSource={dataList}
                                 renderRow={this._renderItem}/>

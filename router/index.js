@@ -358,6 +358,49 @@ exports.topicIsUserLike = (req, res) => {
 
 };
 
+
+/***
+ * 我吐槽过的话题
+ * @param req
+ * @param res
+ */
+exports.topicParticipate = (req, res) => {
+
+    console.log("请求参数 == ",req.body);
+    let pageSize = req.body.pageSize;
+    let pageNum = req.body.pageNum;
+
+    if(checkToken(req,res)){ //先检查token
+
+        let userId = getUserInfo(req).id; //拿到用户Id
+
+        let sql = `select * from topic where id in ( select distinct topicId from comment where userId = ${userId}) limit ${pageNum*pageSize},${(pageNum+1)*pageSize}`;
+        let sql2 = `select count(*) from topic where id in ( select distinct topicId from comment where userId = ${userId} )`;
+
+        db.query(sql,function (error, results, fields) {
+
+            if (error) throw error;
+            console.log("results == ",results);
+
+            db.query(sql2,function (error2, results2, fields2) {
+
+                let fianlData = {
+                    dataList:results,
+                    totalCount:results2[0]["count(*)"]
+                };
+                let json = jsonData(true,fianlData);
+                res.json(json);
+
+            });
+
+        })
+
+
+    }
+
+
+};
+
 /***
  * 查询评论列表
  * @param req
