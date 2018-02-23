@@ -13,14 +13,26 @@ export default class Header extends Component{
     constructor(props){
         super(props);
 
+        this._goBack = this._goBack.bind(this);
+
     }
+
+    /***
+     * 返回上一页
+     * @private
+     */
+    _goBack(){
+        window.history.go(-1)
+    }
+
+
 
     render(){
         return (
             <NavBar id="topHeight"
                     className="rn-home-navbar"
                     mode="dark"
-                    icon={<Icon type="left" className="icon-left"/>} >
+                    icon={<Icon type="left" className="icon-left" onClick={this._goBack}/>} >
 
                 <List className='header-search'>
                     <InputItem className="search-title" placeholder="请输入搜索内容" clear>
