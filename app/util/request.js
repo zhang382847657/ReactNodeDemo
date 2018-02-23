@@ -51,7 +51,6 @@ export default function Request(url, data, method,needToken) { //未传没有，
         init = {
             method: method,
             headers: {
-                //FIXME: 如果是正式环境，把这个注释解开 'Authorization': "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJDMDAwMzYwNSIsImV4cCI6MTUxNjM0MzQ1NSwibmlja05hbWUiOiIxODU1MTYyNDgxNCIsInVzZXJUeXBlIjoxLCJzb3VyY2UiOjAsImR1c2VyQ29kZSI6IkQwMDAxNyJ9.MzYP66553v77lNDlfxntrk80tk2zPyABLW4PQRjKp2E",
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 Authorization:CommonInfo.getToken()
@@ -83,6 +82,8 @@ export default function Request(url, data, method,needToken) { //未传没有，
                 } else {
                     if (response.rescode == 202) {//202未登录
                         Toast.fail("未登录",1)
+                    } else if (response.rescode == 203){ //登录过期
+                        Toast.fail("请重新登录",1)
                     } else {
                         Toast.fail(response.msg);
                         reject(response);
@@ -91,7 +92,7 @@ export default function Request(url, data, method,needToken) { //未传没有，
                 }
             },
             error => {
-                console.log('api error', error)
+                console.log('接口异常 == ', error)
                 Toast.fail(error.message, 1);
                 reject(error);
             }

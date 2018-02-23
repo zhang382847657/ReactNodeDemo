@@ -6,7 +6,6 @@
 
 var db = require("../database/index.js");
 var token = require("../database/token.js");
-var moment = require("moment");
 
 const ErrorType = { //错误类型
     NoLogin:{
@@ -243,7 +242,9 @@ exports.topicDetail = (req, res) => {
     console.log("请求参数 == ",req.query);
     let id = req.query.id;
 
-    db.query(`select * from topic where id = ${id} `,function (error, results, fields) {
+    let sql = `select *, (select count(*) from topic_like where topicId = ${id}) as  likeNum, (select count(*) from comment where topicId = ${id}) as commentNum from topic where id = ${id}`
+
+    db.query(sql,function (error, results, fields) {
 
         if (error) throw error;
         console.log("results == ",results);
@@ -280,6 +281,92 @@ exports.topicSendComment = (req, res) => {
             res.json(json);
 
         })
+    }
+
+};
+
+
+/***
+ * 点赞  如果已经点过赞，则取消点赞
+ * @param req
+ * @param res
+ */
+exports.topicLike = (req, res) => {
+
+    console.log("请求参数 == ",req.body);
+
+    let id = req.body.id;
+
+    if(checkToken(req,res)){ //先检查token
+
+        let userId = getUserInfo(req).id; //拿到用户Id
+
+        db.query(`select * from topic_like where topicId = ${id} and userId = ${userId}`,function (error, results, fields) {
+
+            if (error) throw error;
+            console.log("results == ",results);
+
+            if(results.length > 0 ){
+
+
+                db.query(`delete from topic_like where topicId = ${id} and userId = ${userId} `,function (error, results2, fields) {
+
+                    if (error) throw error;
+                    console.log("删除结果 == ",results2);
+
+                    let json = jsonData(true,{});
+                    res.json(json);
+
+                })
+
+            }else {
+                db.query(`insert into topic_like values (${id}, ${userId}) `,function (error, results2, fields) {
+
+                    if (error) throw error;
+                    console.log("添加结果 == ",results2);
+
+                    let json = jsonData(true,{});
+                    res.json(json);
+
+                })
+            }
+
+
+
+        });
+
+
+    }
+
+};
+
+
+/***
+ * 用户是否对当前话题点过赞
+ * @param req
+ * @param res
+ */
+exports.topicIsUserLike = (req, res) => {
+
+    console.log("请求参数 == ",req.body);
+
+    let id = req.body.id;
+
+    if(checkToken(req,res)){ //先检查token
+
+        let userId = getUserInfo(req).id; //拿到用户Id
+
+        db.query(`select * from topic_like where topicId = ${id} and userId = ${userId}`,function (error, results, fields) {
+
+            if (error) throw error;
+            console.log("results == ",results);
+
+            let json = jsonData(true,results.length > 0 ? true : false);
+            res.json(json);
+
+
+        });
+
     }
 
 };
