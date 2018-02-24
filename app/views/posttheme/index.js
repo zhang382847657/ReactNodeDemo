@@ -17,8 +17,6 @@ export default class PostTheme extends Component {
         };
 
         this._postTheme = this._postTheme.bind(this);
-        this.changeTitle = this.changeTitle.bind(this);
-        this.changeBody = this.changeBody.bind(this);
         this._imageOnChange = this._imageOnChange.bind(this);
         this._imageOnClick = this._imageOnClick.bind(this);
     }
@@ -50,68 +48,6 @@ export default class PostTheme extends Component {
     _imageOnClick(index, fs){
         console.log("图片被点击 == ",index,fs);
     }
-
-
-    render() {
-        return (
-            <div>
-
-                <Header navBarText="发布主题" navBarRight={<i className="iconfont" onClick={this._postTheme}>&#xe62f;</i>}/>
-
-                <div className="posttheme">
-
-                    <WhiteSpace />
-
-                    <List renderHeader={() => '标题'}>
-                        <InputItem maxLength={40}
-                                   placeholder="请输入标题"
-                                   onChange={this.changeTitle}/>
-
-                    </List>
-
-                    <WhiteSpace />
-
-                    <List renderHeader={() => '内容'}>
-                        <TextareaItem
-                            rows={5}
-                            count={2000}
-                            placeholder="请输入内容"
-                            onChange={this.changeBody}/>
-                    </List>
-
-                    <WhiteSpace />
-
-                    <List renderHeader={() => '添加图片'}>
-                        <ImagePicker files={this.state.files}
-                                     onChange={this._imageOnChange}
-                                     onImageClick={this._imageOnClick}
-                                     selectable={this.state.files.length < 5}
-                                     multiple={true}/>
-                    </List>
-
-                </div>
-
-            </div>
-
-        )
-
-
-    }
-
-
-    changeTitle(e) {
-        this.setState({
-            title: e
-        })
-    }
-
-    changeBody(e) {
-        console.log(e)
-        this.setState({
-            content: e
-        })
-    }
-
 
     /**
      * 发布话题
@@ -145,5 +81,52 @@ export default class PostTheme extends Component {
 
         }))
     }
+
+
+    render() {
+        return (
+            <div>
+
+                <Header navBarText="发布主题" navBarRight={<i className="iconfont" onClick={this._postTheme}>&#xe62f;</i>}/>
+
+                <div className="postTheme">
+
+                    <WhiteSpace />
+
+                    <List renderHeader={() => '标题'}>
+                        <InputItem maxLength={40}
+                                   placeholder="请输入标题"
+                                   onChange={(v)=>{this.setState({title:v})}}/>
+
+                    </List>
+
+                    <WhiteSpace />
+
+                    <List renderHeader={() => '内容'}>
+                        <TextareaItem
+                            rows={5}
+                            count={2000}
+                            placeholder="请输入内容"
+                            onChange={(v)=>{this.setState({content:v})}}/>
+                    </List>
+
+                    <WhiteSpace />
+
+                    <List renderHeader={() => '添加图片'}>
+                        <ImagePicker files={this.state.files}
+                                     onChange={this._imageOnChange}
+                                     onImageClick={this._imageOnClick}
+                                     selectable={this.state.files.length < 5}
+                                     multiple={true}/>
+                    </List>
+
+                </div>
+
+            </div>
+
+        )
+
+    }
+
 
 }
