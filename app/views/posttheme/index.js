@@ -3,19 +3,28 @@
  */
 import React, {Component} from "react";
 import "./index.less";
-import {InputItem, List, TextareaItem,Toast} from "antd-mobile";
+import {InputItem, List, TextareaItem,Toast,ImagePicker} from "antd-mobile";
 import Header from "../component/header";
 import webApi from "./webapi";
 
 
 const Item = List.Item;
 
+const data = [{
+    url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg',
+    id: '2121',
+}, {
+    url: 'https://zos.alipayobjects.com/rmsportal/hqQWgTXdrlmVVYi.jpeg',
+    id: '2122',
+}];
 export default class PostTheme extends Component {
     constructor(props) {
         super(props);
         this.state = {
             title: "",
-            content: ""
+            content: "",
+            files: data,
+            multiple: false,
         }
         this.uploadImg = this.uploadImg.bind(this);
         this.postTheme = this.postTheme.bind(this);
@@ -28,7 +37,22 @@ export default class PostTheme extends Component {
 
     }
 
+    onChange(files, type, index){
+        console.log(files, type, index);
+        this.setState({
+            files,
+        });
+    }
+    onSegChange(e){
+        const index = e.nativeEvent.selectedSegmentIndex;
+        this.setState({
+            multiple: index === 1,
+        });
+    }
+
     render() {
+
+        const { files } = this.state;
         return (
             <div className="posttheme">
 
@@ -59,17 +83,13 @@ export default class PostTheme extends Component {
                  <div className="uploadImg">
                      <h3>上传图片</h3>
                      <div>
-                         <img onClick={this.uploadImg} src="http://bpic.588ku.com/element_origin_min_pic/01/37/91/22573c685c2d130.jpg"
-                              className="img"/>
-                         <img
-                             src="http://bpic.588ku.com//element_origin_min_pic/17/06/08/a97ecf04b2ec7bdd6fa29b2eeb57269f.jpg"
-                             className="img"/>
-                         <img
-                             src="https://bpic.588ku.com/original_origin_min_pic/17/10/24/aedf399b9a25de0c2eaceed778072a3b.jpg"
-                             className="img"/>
-                         <img
-                             src="https://bpic.588ku.com/original_origin_min_pic/17/10/24/aedf399b9a25de0c2eaceed778072a3b.jpg"
-                             className="img"/>
+                         <ImagePicker
+                             files={files}
+                             onChange={this.onChange}
+                             onImageClick={(index, fs) => console.log(index, fs)}
+                             selectable={files.length < 5}
+                             multiple={true}
+                         />
                      </div>
                  </div>
              </div>
