@@ -6,7 +6,7 @@ import "./index.less";
 import {InputItem, List, TextareaItem,Toast, ImagePicker,WhiteSpace} from "antd-mobile";
 import WxImageViewer from 'react-wx-images-viewer';
 import Header from "../component/header";
-import webApi from "./webapi";
+import webapi from "./webapi";
 import FileUpload from '../../util/fileUpload';
 import Constant from '../../util/Constant';
 
@@ -126,7 +126,7 @@ export default class PostTheme extends Component {
             // 全部上传完成
             console.log("图片全部上传完成");
 
-            webApi.posttheme(that.state.title,that.state.content,finalImages.join(",")).then(((response) => {
+            webapi.postTheme(that.state.title,that.state.content,finalImages.join(",")).then(((response) => {
                 Toast.success("发布成功", 1);
                 //that.props.history.goBack();
 

@@ -10,11 +10,11 @@ import Request from "../../util/request";
  * @param content
  * @param images
  */
-exports.posttheme= (title, content, images) => {
+exports.postTheme= (title, content, images) => {
     let param = {
         title: title,
         content: content,
         images:images
     };
-    return Request("/postTheme", param, "POST", true);
+    return Request("/topic/publish", param, "POST", true);
 }

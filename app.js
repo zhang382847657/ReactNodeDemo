@@ -15,6 +15,8 @@ app.use('/public',express.static('public'));//将文件设置成静态,就可以
 
 /** 登录 */
 app.get('/login', router.login);
+/** 发布话题 */
+app.post('/topic/publish', router.topicPublish);
 /** 查询话题列表 */
 app.get('/topic/queryList', router.topicList);
 /** 查询话题详情 */
@@ -33,8 +35,7 @@ app.get('/topic/search', router.topicSearch);
 app.get('/comment/queryList', router.commentList);
 /** 注册 */
 app.get('/register', router.register);
-/** 发布话题 */
-app.post('/postTheme', router.postTheme);
+
 /** 查询用户信息 */
 app.post('/user/detail', router.userDetail);
 /** 上传文件 */

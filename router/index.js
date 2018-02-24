@@ -195,20 +195,25 @@ exports.login = (req, res) => {
 
 /**
  * 发布话题*/
-exports.postTheme = (req, res) => {
+exports.topicPublish = (req, res) => {
 
     let title = req.body.title;
     let content = req.body.content;
     let images = req.body.images;
 
-    db.query(`insert into topic (title,content,createTime,images) values ("${title}","${content}",now(),'${images}')`,function(error, results, fields){
-        if(error) throw  error;
-        console.log("results == ",results);
+    if(checkToken(req,res)) { //先检查token
 
-        let json = jsonData(true,{});
-        res.json(json);
+        let userId = getUserInfo(req).id; //拿到用户Id
 
-    })
+        db.query(`insert into topic (title,content,createTime,images,userId) values ("${title}","${content}",now(),'${images}',${userId})`,function(error, results, fields){
+            if(error) throw  error;
+            console.log("results == ",results);
+
+            let json = jsonData(true,{});
+            res.json(json);
+
+        })
+    }
 
 }
 
