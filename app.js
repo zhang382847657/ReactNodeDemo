@@ -36,6 +36,9 @@ app.get('/register', router.register);
 app.get('/posttheme', router.posttheme);
 /** 查询用户信息 */
 app.post('/user/detail', router.userDetail);
+/** 上传文件 */
+app.post('/upload', router.uploadFile);
+
 
 
 app.listen(3000, () => {

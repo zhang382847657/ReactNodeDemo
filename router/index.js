@@ -3,9 +3,10 @@
  * Created by zhanglin on 2018/2/12.
  */
 
-
+var multiparty = require('multiparty');
 var db = require("../database/index.js");
 var token = require("../database/token.js");
+var fs = require('fs');
 
 const ErrorType = { //错误类型
     NoLogin:{
@@ -27,6 +28,10 @@ const ErrorType = { //错误类型
     PasswordError:{
         code: 206,
         msg: "密码错误"
+    },
+    FileUploadError:{
+        code: 207,
+        msg: "上传失败"
     }
 
 };
@@ -502,6 +507,47 @@ exports.userDetail = (req, res) => {
 
         })
     }
+
+};
+
+/***
+ * 上传文件
+ * @param req
+ * @param res
+ */
+exports.uploadFile = (req, res) => {
+
+    console.log("请求参数 == ",req.body);
+
+    var form = new multiparty.Form();
+    form.parse(req, function(err, fields, files){
+
+        if (err) {
+            console.log("文件上传失败 == ",err);
+            let json =jsonData(false, null, ErrorType.FileUploadError.msg, ErrorType.FileUploadError.code);
+            res.json(json);
+        }else{
+            //将前台传来的base64数据去掉前缀
+            var imgData = fields.filedata[0].replace(/^data:image\/\w+;base64,/, '');
+            var dataBuffer = new Buffer(imgData, 'base64');
+
+            var _timeSymbol = new Date().getTime().toString(); //时间戳
+            var filePath = `public/images/${_timeSymbol}.png`; //文件的名字用时间戳来存储
+
+            //写入文件
+            fs.writeFile(filePath, dataBuffer, function(err){
+                if(err){
+                    console.log("文件写入失败 == ",err);
+                    let json = jsonData(false, null, ErrorType.FileUploadError.msg, ErrorType.FileUploadError.code);
+                    res.json(json);
+                }else{
+                    let json = jsonData(true,{filePath:filePath});
+                    res.json(json);
+                }
+            });
+        }
+    });
+
 
 };
 
