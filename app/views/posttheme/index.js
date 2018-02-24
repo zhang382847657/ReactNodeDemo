@@ -127,9 +127,9 @@ export default class PostTheme extends Component {
             console.log("图片全部上传完成");
 
             webapi.postTheme(that.state.title,that.state.content,finalImages.join(",")).then(((response) => {
-                Toast.success("发布成功", 1);
-                //that.props.history.goBack();
-
+                Toast.success("发布成功", 1, () => {
+                    that.props.history.goBack();
+                });
             }));
 
         }).catch( (err) => {

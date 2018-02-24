@@ -117,8 +117,10 @@ export default class Register extends Component {
 
     /**注册*/
     register() {
+
+
         let phone = this.state.phone;
-        console.log("phone==>", phone)
+
         if (!/^1\d{10}$/.test(phone)) {
             Toast.info("手机号码未填或者不正确", 1);
             return;
@@ -139,18 +141,11 @@ export default class Register extends Component {
             return;
         }
 
+        let that = this;
         webApi.register(this.state.phone, this.state.password).then((response) => {
-            Toast.info("注册成功,快去登录吧", 1);
-            this.setState({
-                phone: "",
-                password: "",
-                confirmPassword: "",
-                agreeRegister: false
+            Toast.success("注册成功,快去登录吧", 1, ()=>{
+                that.props.history.push("login");
             });
-            setTimeout(()=>{
-                this.props.history.push("login")
-            },1000)
-
         })
 
     }
