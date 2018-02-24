@@ -4,6 +4,7 @@
 import React, {Component} from "react";
 import "./index.less";
 import {InputItem, List, TextareaItem,Toast, ImagePicker,WhiteSpace} from "antd-mobile";
+import WxImageViewer from 'react-wx-images-viewer';
 import Header from "../component/header";
 import webApi from "./webapi";
 
@@ -13,12 +14,15 @@ export default class PostTheme extends Component {
         this.state = {
             title: "",
             content: "",
-            files:[] //上传图片数组
+            files:[], //上传图片数组
+            isOpen:false, //是否打开图片浏览
+            currentSelectIndex:0, //当前选中要浏览图片的下标
         };
 
         this._postTheme = this._postTheme.bind(this);
         this._imageOnChange = this._imageOnChange.bind(this);
         this._imageOnClick = this._imageOnClick.bind(this);
+        this._imagePickerClose = this._imagePickerClose.bind(this);
     }
 
     componentDidMount() {
@@ -46,8 +50,26 @@ export default class PostTheme extends Component {
      * @private
      */
     _imageOnClick(index, fs){
+
         console.log("图片被点击 == ",index,fs);
+        this.setState({
+            currentSelectIndex:index,
+            isOpen: true
+        });
+
     }
+
+
+    /**
+     * 图片浏览关闭
+     * @private
+     */
+    _imagePickerClose(){
+        this.setState({
+            isOpen: false
+        })
+    }
+
 
     /**
      * 发布话题
@@ -84,6 +106,12 @@ export default class PostTheme extends Component {
 
 
     render() {
+
+        let pickerImage = [];
+        this.state.files.map(function (value,index) {
+            pickerImage.push(value.url);
+        });
+
         return (
             <div>
 
@@ -121,6 +149,13 @@ export default class PostTheme extends Component {
                     </List>
 
                 </div>
+
+                {
+                    this.state.isOpen ?
+                        <WxImageViewer onClose={this._imagePickerClose}
+                                       urls={pickerImage}
+                                       index={this.state.currentSelectIndex}/> : null
+                }
 
             </div>
 
