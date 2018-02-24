@@ -50,8 +50,10 @@ export default class Register extends Component {
                         moneyKeyboardAlign="left"
                         onChange={this.phoneChange}
                     >
-                        <img className="image" src="https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png"/>
+                        <i className="iconfont">&#xe801;</i>
                     </InputItem>
+
+
                     <InputItem
                         className="inp"
                         placeholder="请输入密码"
@@ -59,8 +61,7 @@ export default class Register extends Component {
                         maxLength={11}
                         type="password"
                         onChange={this.passWordChange}
-                    > <img className="image"
-                           src="https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png"/></InputItem>
+                    >  <i className="iconfont">&#xe603;</i></InputItem>
                     <InputItem
                         className="inp"
                         placeholder="请再次输入密码"
@@ -68,8 +69,7 @@ export default class Register extends Component {
                         type="password"
                         moneyKeyboardAlign="left"
                         onChange={this.confirmpassWordChange}
-                    > <img className="image"
-                           src="https://zos.alipayobjects.com/rmsportal/DfkJHaJGgMghpXdqNaKF.png"/></InputItem>
+                    > <i className="iconfont">&#xe603;</i></InputItem>
 
                     <Radio className="my-radio" checked={this.state.agreeRegister} onChange={this.clickAgreeRegister}>同意注册条款</Radio>
                     <Button type="primary" className="button" onClick={this.register}>注册</Button>
