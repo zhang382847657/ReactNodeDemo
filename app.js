@@ -11,6 +11,7 @@ var cors = require('cors');
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use('/public',express.static('public'));//将文件设置成静态,就可以访问该文件夹下的图片或者文件了
 
 /** 登录 */
 app.get('/login', router.login);
@@ -32,8 +33,8 @@ app.get('/topic/search', router.topicSearch);
 app.get('/comment/queryList', router.commentList);
 /** 注册 */
 app.get('/register', router.register);
-/** 发布主题 */
-app.get('/posttheme', router.posttheme);
+/** 发布话题 */
+app.post('/postTheme', router.postTheme);
 /** 查询用户信息 */
 app.post('/user/detail', router.userDetail);
 /** 上传文件 */

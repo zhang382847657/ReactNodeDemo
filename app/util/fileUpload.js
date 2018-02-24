@@ -26,10 +26,9 @@ export default function FileUpload(url, file , success, deleteFile, fail, progre
         let xhr = new XMLHttpRequest();
         if (xhr.upload) {
 
-            // 上传中
             xhr.upload.addEventListener("progress", (e) => {
                 // 处理上传进度
-                progress && progress(file, e.loaded, e.total, idx);
+                progress && progress(file, e.loaded, e.total);
             }, false);
 
             // 文件上传成功或是失败
@@ -51,6 +50,7 @@ export default function FileUpload(url, file , success, deleteFile, fail, progre
 
             // 开始上传
             xhr.open("POST", finalUrl, true);
+            xhr.setRequestHeader('Authorization', CommonInfo.getToken());
             let form = new FormData();
             form.append("filedata", file);
             xhr.send(form)

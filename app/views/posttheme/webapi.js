@@ -5,12 +5,16 @@
 import Request from "../../util/request";
 
 /**
- * 注册*/
-exports.posttheme= (title, content) => {
+ * 发布话题
+ * @param title
+ * @param content
+ * @param images
+ */
+exports.posttheme= (title, content, images) => {
     let param = {
         title: title,
         content: content,
-
+        images:images
     };
-    return Request("/posttheme", param, "GET", false);
+    return Request("/postTheme", param, "POST", true);
 }

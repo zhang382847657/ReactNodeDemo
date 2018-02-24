@@ -126,21 +126,6 @@ exports.register = (req, res) => {
 }
 
 
-/**
- * 发布主题*/
-exports.posttheme = (req, res) => {
-    let title = req.query.title;
-    let content = req.query.content;
-    db.query(`insert into topic (title,content,createTime) values ("${title}","${content}",now())`,function(error, results, fields){
-        if(error) throw  error;
-        let json = jsonData(true,results);
-        res.json(json);
-
-    })
-
-}
-
-
 
 /***
  * 登录
@@ -207,6 +192,25 @@ exports.login = (req, res) => {
 };
 
 
+
+/**
+ * 发布话题*/
+exports.postTheme = (req, res) => {
+
+    let title = req.body.title;
+    let content = req.body.content;
+    let images = req.body.images;
+
+    db.query(`insert into topic (title,content,createTime,images) values ("${title}","${content}",now(),'${images}')`,function(error, results, fields){
+        if(error) throw  error;
+        console.log("results == ",results);
+
+        let json = jsonData(true,{});
+        res.json(json);
+
+    })
+
+}
 
 /***
  * 查询所有话题
@@ -519,34 +523,41 @@ exports.uploadFile = (req, res) => {
 
     console.log("请求参数 == ",req.body);
 
-    var form = new multiparty.Form();
-    form.parse(req, function(err, fields, files){
+    if(checkToken(req,res)) { //先检查token
 
-        if (err) {
-            console.log("文件上传失败 == ",err);
-            let json =jsonData(false, null, ErrorType.FileUploadError.msg, ErrorType.FileUploadError.code);
-            res.json(json);
-        }else{
-            //将前台传来的base64数据去掉前缀
-            var imgData = fields.filedata[0].replace(/^data:image\/\w+;base64,/, '');
-            var dataBuffer = new Buffer(imgData, 'base64');
+        var form = new multiparty.Form();
+        form.parse(req, function(err, fields, files){
 
-            var _timeSymbol = new Date().getTime().toString(); //时间戳
-            var filePath = `public/images/${_timeSymbol}.png`; //文件的名字用时间戳来存储
+            if (err) {
+                console.log("文件上传失败 == ",err);
+                let json =jsonData(false, null, ErrorType.FileUploadError.msg, ErrorType.FileUploadError.code);
+                res.json(json);
+            }else{
+                //将前台传来的base64数据去掉前缀
+                console.log("文件上传成功");
+                var imgData = fields.filedata[0].replace(/^data:image\/\w+;base64,/, '');
+                var dataBuffer = new Buffer(imgData, 'base64');
 
-            //写入文件
-            fs.writeFile(filePath, dataBuffer, function(err){
-                if(err){
-                    console.log("文件写入失败 == ",err);
-                    let json = jsonData(false, null, ErrorType.FileUploadError.msg, ErrorType.FileUploadError.code);
-                    res.json(json);
-                }else{
-                    let json = jsonData(true,{filePath:filePath});
-                    res.json(json);
-                }
-            });
-        }
-    });
+                var _timeSymbol = new Date().getTime().toString(); //时间戳
+                var filePath = `public/images/${_timeSymbol}.png`; //文件的名字用时间戳来存储
+
+                //写入文件
+                fs.writeFile(filePath, dataBuffer, function(err){
+                    if(err){
+                        console.log("文件写入失败 == ",err);
+                        let json = jsonData(false, null, ErrorType.FileUploadError.msg, ErrorType.FileUploadError.code);
+                        res.json(json);
+                    }else{
+                        let json = jsonData(true,{filePath:filePath});
+                        res.json(json);
+                    }
+                });
+            }
+        });
+
+    }
+
+
 
 
 };

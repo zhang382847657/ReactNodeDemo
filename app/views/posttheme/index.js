@@ -8,6 +8,7 @@ import WxImageViewer from 'react-wx-images-viewer';
 import Header from "../component/header";
 import webApi from "./webapi";
 import FileUpload from '../../util/fileUpload';
+import Constant from '../../util/Constant';
 
 export default class PostTheme extends Component {
     constructor(props) {
@@ -80,66 +81,64 @@ export default class PostTheme extends Component {
 
         let that = this;
 
-        // if (this.state.title == "") {
-        //     Toast.info("请输入标题", 1);
-        //     return;
-        // }
-        //
-        // if (this.state.content == "") {
-        //     Toast.info("请输入内容", 1);
-        //     return;
-        // }
+        if (this.state.title == "") {
+            Toast.info("请输入标题", 1);
+            return;
+        }
 
-        // webApi.posttheme(this.state.title,this.state.content).then(((response) => {
-        //     Toast.info("发布成功啦", 1);
-        //     that.setState({
-        //         title:"",
-        //         content:"",
-        //         files:[]
-        //     });
-        //
-        //     setTimeout(()=>{
-        //         that.props.history.goBack();
-        //     },1000)
-        //
-        // }))
+        if (this.state.content == "") {
+            Toast.info("请输入内容", 1);
+            return;
+        }
 
 
-        // FileUpload('/upload',this.state.files[0].url)
-        //     .then( res=>{
-        //         //请求成功
-        //         console.log("res == ",res);
-        //         // if(res.header.statusCode == 'success'){
-        //         //     //这里设定服务器返回的header中statusCode为success时数据返回成功
-        //         //     upLoadImgUrl = res.body.imgurl;  //服务器返回的地址
-        //         // }else{
-        //         //     //服务器返回异常，设定服务器返回的异常信息保存在 header.msgArray[0].desc
-        //         //     console.log(res.header.msgArray[0].desc);
-        //         // }
-        //     }).catch( err=>{
-        //         console.log("error == ",err);
-        //     //请求失败
-        // })
 
-        FileUpload('/upload',this.state.files[0].url,(file, responseText)=>{
-            //这里是成功的回调
-            console.log("成功的回调 == ",file, responseText);
-        },(file)=>{
-            //这里是删除的回调
-            console.log("删除的回调 == ",file);
-        },(file, responseText)=>{
-            //这里是失败的回调
-            console.log("失败的回调 == ",file, responseText);
-        },(file, loaded, total, idx)=>{
-            //这里是上传进度的回调
-            console.log("上传进度的回调 == ",file, loaded, total, idx);
-            // let percent = (loaded / total * 100).toFixed(2) + '%';
-            // let _progress = this.state.progress;
-            // _progress[idx] = percent;
-            // this.setState({ progress: _progress })  // 反馈到DOM里显示
-        }).then((response)=>{
-            console.log("response == ",response);
-        })
+        let finalImages = [];//已经上传成功的图片数组
+
+
+        Toast.loading("提交中",0);
+
+        let _promises = this.state.files.map(function (value,index) {
+
+            return FileUpload('/upload',value.url,(file, responseText)=>{
+                //这里是成功的回调
+                console.log("成功的回调 == ", responseText);
+                let res = JSON.parse(responseText);
+                console.log("上传图片结果 == ",res.data);
+                finalImages.push(`${Constant.InterfaceUrl}/${res.data.filePath}`);
+
+            },(file)=>{
+                //这里是删除的回调
+                //console.log("删除的回调 == ",file);
+            },(file, responseText)=>{
+                //这里是失败的回调
+                console.log("失败的回调 == ", responseText);
+                Toast.info("上传图片异常，请重试",1);
+            },(file, loaded, total)=>{
+                //这里是上传进度的回调
+                let percent = (loaded / total * 100).toFixed(2) + '%';
+                console.log("上传进度的回调 == ", percent);
+            })
+        });
+
+
+        Promise.all(_promises).then( (res) => {
+            // 全部上传完成
+            console.log("图片全部上传完成");
+
+            webApi.posttheme(that.state.title,that.state.content,finalImages.join(",")).then(((response) => {
+                Toast.success("发布成功", 1);
+                //that.props.history.goBack();
+
+            }));
+
+        }).catch( (err) => {
+            console.log("等待所有上传出现异常 == ",err);
+            Toast.fail("提交异常，请重试",1);
+        });
+
+
+
     }
 
 
