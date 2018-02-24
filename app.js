@@ -8,9 +8,20 @@ var database = require('./database/index.js');
 var router = require('./router/index.js');
 var cors = require('cors');
 
+app.all('*',function (req, res, next) {  //解决跨域问题
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With');
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
 
-app.use(cors());
-app.use(bodyParser.json());
+    if (req.method == 'OPTIONS') {
+        res.send(200); //让options请求快速返回
+    }
+    else {
+        next();
+    }
+});
+app.use(cors()); //解决跨域问题
+app.use(bodyParser.json()); //解析post请求在body中的参数
 app.use('/public',express.static('public'));//将文件设置成静态,就可以访问该文件夹下的图片或者文件了
 
 /** 登录 */
